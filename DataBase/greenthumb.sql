@@ -56,6 +56,7 @@ CREATE TABLE `gardens` (
 
 -- --------------------------------------------------------
 
+
 --
 -- Table structure for table `knowledgebase`
 --
@@ -101,6 +102,7 @@ CREATE TABLE `plots` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
+
 
 --
 -- Table structure for table `resources`
@@ -180,12 +182,6 @@ CREATE TABLE `weatherdata` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `crops`
 --
 ALTER TABLE `crops`
   ADD PRIMARY KEY (`crop_id`),
@@ -327,47 +323,81 @@ ALTER TABLE `weatherdata`
 -- Constraints for table `crops`
 --
 ALTER TABLE `crops`
-  ADD CONSTRAINT `crops_ibfk_1` FOREIGN KEY (`plot_id`) REFERENCES `plots` (`plot_id`);
+  ADD CONSTRAINT `crops_ibfk_1` FOREIGN KEY (`plot_id`) REFERENCES `plots` (`plot_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `knowledgebase`
 --
 ALTER TABLE `knowledgebase`
-  ADD CONSTRAINT `knowledgebase_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `knowledgebase_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `plots`
 --
 ALTER TABLE `plots`
-  ADD CONSTRAINT `plots_ibfk_1` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`),
-  ADD CONSTRAINT `plots_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `plots_ibfk_1` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `plots_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE ;
 
 --
 -- Constraints for table `resources`
 --
 ALTER TABLE `resources`
-  ADD CONSTRAINT `resources_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`user_id`);
+  ADD CONSTRAINT `resources_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `soildata`
 --
 ALTER TABLE `soildata`
-  ADD CONSTRAINT `soildata_ibfk_1` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`);
+  ADD CONSTRAINT `soildata_ibfk_1` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `volunteers`
 --
 ALTER TABLE `volunteers`
-  ADD CONSTRAINT `volunteers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-  ADD CONSTRAINT `volunteers_ibfk_2` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`);
+  ADD CONSTRAINT `volunteers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `volunteers_ibfk_2` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `weatherdata`
 --
 ALTER TABLE `weatherdata`
-  ADD CONSTRAINT `weatherdata_ibfk_1` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`);
-COMMIT;
+  ADD CONSTRAINT `weatherdata_ibfk_1` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO users (user_id, username, password_hash, email, role)
+VALUES (1, 'user1', 'password1', 'user1@example.com', 'member'),
+       (2, 'user2', 'password2', 'user2@example.com', 'member');
+
+INSERT INTO `gardens` (name, location, sunlight_conditions, soil_type, available_plots) VALUES
+('Central Park Garden', 'Central Park, NY', 'full sun', 'loamy', 10),
+('Riverside Garden', 'Riverside Dr, NY', 'partial sun', 'sandy', 5);
+INSERT INTO `plots` (garden_id, user_id, plot_number, size) VALUES
+(1, 1, 101, '10x10'),
+(1, 2, 102, '15x15'),
+(2, 1, 201, '12x12');
+INSERT INTO `crops` (plot_id, name, planting_date, expected_harvest_date) VALUES
+(1, 'Tomatoes', '2024-04-01', '2024-06-15'),
+(2, 'Carrots', '2024-03-15', '2024-07-01');
+INSERT INTO `knowledgebase` (title, content, author_id) VALUES
+('How to Grow Tomatoes', 'Tomatoes need full sun and regular watering...', 1),
+('Composting Basics', 'Composting is a great way to recycle...', 2);
+INSERT INTO `localpartnerships` (name, description, contact_info) VALUES
+('Local Farm Co.', 'Partnering for local produce.', 'contact@localfarmco.com'),
+('Green Supplies', 'Providing tools and seeds.', 'info@greensupplies.com');
+INSERT INTO `resources` (type, description, owner_id) VALUES
+('tool', 'Shovel', 1),
+('seed', 'Tomato Seeds', 2),
+('compost', 'Organic Compost', 1);
+INSERT INTO `soildata` (garden_id, sample_date, ph_level, nutrients) VALUES
+(1, '2024-05-01', 6.5, 'NPK: 10-10-10'),
+(2, '2024-05-10', 7.0, 'NPK: 8-8-8');
+INSERT INTO `volunteers` (user_id, garden_id, event_date, role) VALUES
+(1, 1, '2024-06-01', 'Planting Coordinator'),
+(2, 2, '2024-06-05', 'Watering Team');
+INSERT INTO `weatherdata` (garden_id, date, temperature, humidity, precipitation) VALUES
+(1, '2024-06-01', 75.5, 60.5, 0.2),
+(2, '2024-06-01', 80.0, 55.0, 0.0);
+COMMIT;
