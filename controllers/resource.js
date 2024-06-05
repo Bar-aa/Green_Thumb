@@ -8,13 +8,14 @@ const getresource = async (req, res) => {
          
           db.query(
              ' SELECT * FROM resources WHERE owner_id = ?',
+           
               [idUSER],
               (error, results) => {
                   if (error) {
                       console.error('Error executing SELECT query:', error);
-                      return res.status(500).json({ success: false, error: 'An error  occurred while retrieving materials' });
+                      return res.status(500).json({ success: false, error: 'An error  occurred while retrieving resorce ' });
                   }
-                 res.status(200).json({ success: true, message: 'These are the materials that you have added:', resources: results });
+                 res.status(200).json({ success: true, message: 'These resource:', resources: results });
   
               }
           );
@@ -23,8 +24,34 @@ const getresource = async (req, res) => {
           res.status(500).json({ success: false, error: 'An error occurred while retrieving materials' });
       }
   };
+
+//----------------------------------------------------------------------
+const showresorce = async (req, res) => {
+    try {
+        db.query(
+            'SELECT * FROM resources',
+            (error, results) => {
+                if (error) {
+                    console.error('Error executing SELECT query:', error);
+                    return res.status(500).json({ success: false, error: 'An error occurred while retrieving materials' });
+                }
+                res.status(200).json({ success: true, message: 'All resources retrieved successfully:', resources: results });
+            }
+        );
+    } catch (error) {
+        console.error('Error retrieving resource:', error);
+        res.status(500).json({ success: false, error: 'An error occurred while retrieving materials' });
+    }
+};
+
+
+
+
+
+
+
   module.exports = {
-    
+    showresorce,
     getresource
    
   };
