@@ -95,6 +95,54 @@ const deleteresource= (req, res) => {
     });
 };
 
+//--------------------------------------------------------------------------------------------------
+const updateresource = (req, res) => {
+  const { id } = req.params;
+  const { type, description, owner_id } = req.body;
+
+  if (!type || !description || !owner_id) {
+      return res.status(400).json({ message: 'Missing important fields' });
+  }
+
+  const allowedTypes = ['tool', 'seed', 'compost', 'produce'];
+  if (!allowedTypes.includes(type)) {
+      return res.status(400).json({ message: 'Invalid type value' });
+  }
+
+  const query = 'UPDATE resources SET type = ?, description = ?, owner_id = ?, updated_at = CURRENT_TIMESTAMP WHERE resource_id = ?';
+  db.query(query, [type, description, owner_id, id], (err, result) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).json({ message: 'Internal server error' });
+      }
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ message: 'Resource not found' });
+      }
+      res.status(200).json({ message: ' updated successfully' });
+  });
+};
+
+
+
+
+ const getResourceByType = (req, res) => {
+    const { type } = req.params;
+
+    
+    console.log(`Received type: ${type}`);
+    
+    const query = 'SELECT * FROM resources WHERE TRIM(type) = ?';
+    db.query(query, [type.trim()], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ message: 'Resorce item not found' });
+        }
+        res.json(results);
+    });
+};
 
 
 
@@ -102,5 +150,7 @@ const deleteresource= (req, res) => {
     showresorce,
     getresource,
     addResource,
-    deleteresource
+    deleteresource,
+    updateresource,
+    getResourceByType
   };

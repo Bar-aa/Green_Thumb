@@ -3,9 +3,14 @@ const router = express.Router();
 const resource = require('../controllers/resource');
 
 router.get('/show', resource.showresorce); // Move '/show' route above '/:owner_id'
-router.get('/:owner_id', resource.getresource);
+router.get('/idowner/:owner_id', resource.getresource);
 router.post('/add', resource.addResource);
 router.delete('/delete/:id', resource.deleteresource);
+router.put('/update/:id', resource.updateresource);
+router.get('/type/:type', resource.getResourceByType);
+
+
+
 module.exports = router;
 
 
