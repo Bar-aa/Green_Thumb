@@ -16,6 +16,6 @@ router.post('/', createGarden);
 router.put('/:id', updateGarden);
 router.delete('/:id', deleteGarden);
 
-router.get('/:id/Plots', getAllPlotsByGardenId);
+router.get('/:gardenId/Plots', getAllPlotsByGardenId);
 
 module.exports = router;

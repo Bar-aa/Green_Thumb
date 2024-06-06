@@ -71,7 +71,7 @@ const deleteGarden = (req, res) => {
 
 const getAllPlotsByGardenId = (req, res) => {
     const { gardenId } = req.params;
-    const query = 'SELECT * FROM plots WHERE garden_id = 1';
+    const query = 'SELECT * FROM plots WHERE garden_id = ?';
     db.query(query, [gardenId], (err, results) => {
         if (err) {
             console.error(err);
