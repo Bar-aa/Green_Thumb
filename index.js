@@ -5,11 +5,10 @@ const express = require("express");
 const cors = require("cors");
 require('./config/dbconnection');
 
+
 const Route=require('./routes/resourceRoute');
 const RouteKnowledge=require('./routes/KnowledgeRoute');
 const RouteVolunteers=require('./routes/VolunteerRoutes');
-
-
 
 const bodyParser=require("body-parser");
 const app = express(); 
@@ -19,6 +18,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
 app.use('/Green_Thumb/resource',Route);
+
 app.use('/Green_Thumb/KnowledgeSharing',RouteKnowledge);
 app.use('/Green_Thumb/Volunteer',RouteVolunteers);
 
