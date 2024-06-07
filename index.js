@@ -5,10 +5,13 @@ const express = require("express");
 const cors = require("cors");
 require('./config/dbconnection');
 
-const Route=require('./routes/Route');
+
+const Route=require('./routes/resourceRoute');
 const RouteKnowledge=require('./routes/KnowledgeRoute');
 const gardensr=require('./routes/gardensr');
 const plotsr = require('./routes/plotsr');
+
+const RouteVolunteers=require('./routes/VolunteerRoutes');
 
 const bodyParser=require("body-parser");
 const app = express(); 
@@ -16,11 +19,19 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
-app.use('/Green_Thumb',Route);
+
+app.use('/Green_Thumb/resource',Route);
 
 app.use('/Green_Thumb/KnowledgeSharing',RouteKnowledge);
+
 app.use('/Green_Thumb/Gardens',gardensr);
+
 app.use('/Green_Thumb/Plots',plotsr);
+app.use('/Green_Thumb/Volunteer',RouteVolunteers);
+
+
+  
+
 app.use((err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.message = err.message || "Internal Index Error";
