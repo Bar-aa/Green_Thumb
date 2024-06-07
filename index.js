@@ -8,8 +8,8 @@ require('./config/dbconnection');
 
 const Route=require('./routes/resourceRoute');
 const RouteKnowledge=require('./routes/KnowledgeRoute');
-const gardensr=require('./routes/gardensr');
-const plotsr = require('./routes/plotsr');
+const gardensRouter=require('./routes/gardensRouter');
+const plotsr = require('./routes/plotsRouter');
 
 const localpartnerships=require('./routes/LocalPartnershipRoute');
 const crops = require('./routes/Crops');
@@ -26,6 +26,10 @@ app.use(cors());
 app.use('/Green_Thumb/resource',Route);
 app.use('/Green_Thumb/localpartner',localpartnerships);
 app.use('/Green_Thumb/KnowledgeSharing',RouteKnowledge);
+
+
+app.use('/Green_Thumb/Gardens',gardensRouter);
+
 app.use('/',weather);
 //app.use('/',soil);
 //app.use('/api', soil);
