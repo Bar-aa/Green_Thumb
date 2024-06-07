@@ -10,7 +10,9 @@ const Route=require('./routes/resourceRoute');
 const RouteKnowledge=require('./routes/KnowledgeRoute');
 const gardensr=require('./routes/gardensr');
 const plotsr = require('./routes/plotsr');
+
 const localpartnerships=require('./routes/LocalPartnershipRoute');
+const crops = require('./routes/Crops');
 const RouteVolunteers=require('./routes/VolunteerRoutes');
 const weather=require('./routes/weatherRoute');
 //const soil=require('./routes/SoilRoute');
@@ -29,7 +31,10 @@ app.use('/',weather);
 //app.use('/api', soil);
 app.use('/Green_Thumb/Gardens',gardensr);
 
+app.use('/Green_Thumb/Crops',crops);
+
 app.use('/Green_Thumb/Plots',plotsr);
+
 app.use('/Green_Thumb/Volunteer',RouteVolunteers);
 
 
