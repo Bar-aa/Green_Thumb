@@ -4,16 +4,16 @@ const {getVolunteersByName,
     getVolunteersByEventDate,
     getAllVolunteers,
     getVolunteerById,
-    addNewVlounteer,
+    addNewVolunteer,
     updateVolunteer,
-    deletevolunteer} = require('../Services/Volunteer');
+    deleteVolunteer} = require('../Services/Volunteer');
 router.get('/name/:Name', getVolunteersByName);
 router.get('/date/:Date', getVolunteersByEventDate);
 router.get('/', getAllVolunteers);
 router.get('/:id', getVolunteerById);
-router.post('/', addNewVlounteer);
+router.post('/', addNewVolunteer);
 router.put('/:id', updateVolunteer);
-router.delete('/:id', deletevolunteer);
+router.delete('/:id', deleteVolunteer);
 
 
 
