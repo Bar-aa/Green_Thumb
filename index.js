@@ -10,7 +10,7 @@ const Route=require('./routes/resourceRoute');
 const RouteKnowledge=require('./routes/KnowledgeRoute');
 const gardensr=require('./routes/gardensr');
 const plotsr = require('./routes/plotsr');
-
+const crops = require('./routes/Crops');
 const RouteVolunteers=require('./routes/VolunteerRoutes');
 
 const bodyParser=require("body-parser");
@@ -26,7 +26,10 @@ app.use('/Green_Thumb/KnowledgeSharing',RouteKnowledge);
 
 app.use('/Green_Thumb/Gardens',gardensr);
 
+app.use('/Green_Thumb/Crops',crops);
+
 app.use('/Green_Thumb/Plots',plotsr);
+
 app.use('/Green_Thumb/Volunteer',RouteVolunteers);
 
 
