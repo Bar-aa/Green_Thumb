@@ -1,6 +1,11 @@
 const express=require("express");
 const router=express.Router();
-const { getKnowledgeByTitle,getAllKnowledges, createKnowledgeItem, updateKnowledge, deleteKnowledge,getKnowledgeById} = require('../controllers/KnowledgeSharing');
+const { getKnowledgeByTitle,
+        getAllKnowledges,
+        createKnowledgeItem, 
+        updateKnowledge, 
+        deleteKnowledge,
+        getKnowledgeById } = require('../Services/KnowledgeSharing');
 router.get('/title/:title', getKnowledgeByTitle); 
 router.get('/', getAllKnowledges);
 router.post('/', createKnowledgeItem);

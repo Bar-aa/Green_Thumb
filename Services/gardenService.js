@@ -1,4 +1,4 @@
-const gardenPersistence = require('../persistence/gardenPersistence');
+const gardenPersistence = require('../Persistence/gardenPersistence');
 
 const getAllGardens = async (req, res) => {
     try {

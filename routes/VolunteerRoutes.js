@@ -1,6 +1,12 @@
 const express=require("express");
 const router=express.Router();
-const {getVolunteersByName,getVolunteersByEventDate,getAllVolunteers,getVolunteerById,addNewVlounteer,updateVolunteer,deletevolunteer} = require('../controllers/Volunteer');
+const {getVolunteersByName,
+    getVolunteersByEventDate,
+    getAllVolunteers,
+    getVolunteerById,
+    addNewVlounteer,
+    updateVolunteer,
+    deletevolunteer} = require('../Services/Volunteer');
 router.get('/name/:Name', getVolunteersByName);
 router.get('/date/:Date', getVolunteersByEventDate);
 router.get('/', getAllVolunteers);

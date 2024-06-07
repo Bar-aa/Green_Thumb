@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const LocalPartnership = require('../controllers/LocalPartnership');
+const LocalPartnership = require('../Services/LocalPartnership');
 
 router.get('/ShowPartner', LocalPartnership.showPartners); 
 router.get('/:partnerId', LocalPartnership.getPartnerDetailsbyId); 
