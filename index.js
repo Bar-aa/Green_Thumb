@@ -8,8 +8,8 @@ require('./config/dbconnection');
 
 const Route=require('./routes/resourceRoute');
 const RouteKnowledge=require('./routes/KnowledgeRoute');
-const gardensRouter=require('./routes/gardensr');
-const plotsr = require('./routes/plotsr');
+const gardensRouter=require('./routes/gardensRouter');
+const plotsr = require('./routes/plotsRouter');
 
 const RouteVolunteers=require('./routes/VolunteerRoutes');
 
