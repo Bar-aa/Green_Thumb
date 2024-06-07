@@ -8,6 +8,7 @@ require('./config/dbconnection');
 const Route=require('./routes/Route');
 const RouteKnowledge=require('./routes/KnowledgeRoute');
 const gardensr=require('./routes/gardensr');
+const plotsr = require('./routes/plotsr');
 
 const bodyParser=require("body-parser");
 const app = express(); 
@@ -19,6 +20,7 @@ app.use('/Green_Thumb',Route);
 
 app.use('/Green_Thumb/KnowledgeSharing',RouteKnowledge);
 app.use('/Green_Thumb/Gardens',gardensr);
+app.use('/Green_Thumb/Plots',plotsr);
 app.use((err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
     err.message = err.message || "Internal Index Error";
