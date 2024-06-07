@@ -8,7 +8,7 @@ require('./config/dbconnection');
 
 const Route=require('./routes/resourceRoute');
 const RouteKnowledge=require('./routes/KnowledgeRoute');
-const gardensr=require('./routes/gardensr');
+const gardensRouter=require('./routes/gardensr');
 const plotsr = require('./routes/plotsr');
 
 const RouteVolunteers=require('./routes/VolunteerRoutes');
@@ -24,7 +24,7 @@ app.use('/Green_Thumb/resource',Route);
 
 app.use('/Green_Thumb/KnowledgeSharing',RouteKnowledge);
 
-app.use('/Green_Thumb/Gardens',gardensr);
+app.use('/Green_Thumb/Gardens',gardensRouter);
 
 app.use('/Green_Thumb/Plots',plotsr);
 app.use('/Green_Thumb/Volunteer',RouteVolunteers);
