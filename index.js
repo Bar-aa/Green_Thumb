@@ -33,7 +33,7 @@ app.use('/Green_Thumb/Gardens',gardensRouter);
 app.use('/',weather);
 //app.use('/',soil);
 //app.use('/api', soil);
-app.use('/Green_Thumb/Gardens',gardensr);
+//app.use('/Green_Thumb/Gardens',gardensr);
 
 app.use('/Green_Thumb/Crops',crops);
 
