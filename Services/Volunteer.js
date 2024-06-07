@@ -1,4 +1,4 @@
-const volunteerPersistence = require('./volunteerPersistence');
+const volunteerPersistence = require('../Persistence/VolunteerPersistence');
 
 const getAllVolunteers = async (req, res) => {
     try {
