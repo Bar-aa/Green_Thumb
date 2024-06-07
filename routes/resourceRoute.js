@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const resource = require('../controllers/resource');
+const resource = require('../Services/resource');
 
 router.get('/show', resource.showresorce); // Move '/show' route above '/:owner_id'
 router.get('/idowner/:owner_id', resource.getresource);

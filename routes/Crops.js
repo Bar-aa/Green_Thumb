@@ -6,7 +6,7 @@ const {
     addCrop,
     updateCrop,
     deleteCrop,
-} = require('../controllers/CropsControl');
+} = require('../Services/CropsService');
 
 
 router.get('/', getAllCrops);

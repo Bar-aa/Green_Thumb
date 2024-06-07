@@ -1,4 +1,4 @@
-const plotPersistence = require('../persistence/plotPersistence');
+const plotPersistence = require('../Persistence/plotPersistence');
 
 const getAllPlots = async (req, res) => {
     try {

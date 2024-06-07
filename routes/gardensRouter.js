@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const gardenController = require('../controllers/gardenController');
+const gardenController = require('../Services/gardenService');
 
 router.get('/', gardenController.getAllGardens);
 router.get('/:id', gardenController.getGardenById);

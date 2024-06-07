@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const plotController = require('../controllers/plotController');
+const plotController = require('../Services/plotService');
 
 router.get('/', plotController.getAllPlots);
 router.get('/:id', plotController.getPlotById);
