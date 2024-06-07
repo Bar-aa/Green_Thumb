@@ -6,7 +6,8 @@ const {
     createGarden, 
     updateGarden, 
     deleteGarden, 
-    getAllPlotsByGardenId
+    getAllPlotsByGardenId,
+    getAllCropsInGarden
 } = require('../controllers/gardens');
 
 
@@ -17,5 +18,6 @@ router.put('/:id', updateGarden);
 router.delete('/:id', deleteGarden);
 
 router.get('/:gardenId/Plots', getAllPlotsByGardenId);
+router.get('/:gardenId/Crops', getAllCropsInGarden); 
 
 module.exports = router;

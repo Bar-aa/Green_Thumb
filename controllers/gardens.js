@@ -81,6 +81,18 @@ const getAllPlotsByGardenId = (req, res) => {
     });
 };
 
+const getAllCropsInGarden = (req, res) => {
+    const { gardenId } = req.params;
+    const query = 'SELECT * FROM crops WHERE plot_id IN (SELECT plot_id FROM plots WHERE garden_id = ?)';
+    db.query(query, [gardenId], (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
+        res.json(results);
+    });
+};
+
 module.exports = {
     getAllGardens,
     getGardenById,
@@ -88,4 +100,5 @@ module.exports = {
     updateGarden,
     deleteGarden,
     getAllPlotsByGardenId,
+    getAllCropsInGarden,
 };
