@@ -5,7 +5,7 @@ const express = require("express");
 const cors = require("cors");
 require('./config/dbconnection');
 
-
+const cropsRotations = require('./routes/CropPlaning');
 const Route=require('./routes/resourceRoute');
 const RouteKnowledge=require('./routes/KnowledgeRoute');
 const gardensRouter=require('./routes/gardensRouter');
@@ -36,6 +36,7 @@ app.use('/',weather);
 //app.use('/Green_Thumb/Gardens',gardensr);
 
 app.use('/Green_Thumb/Crops',crops);
+app.use('/Green_Thumb/Crop-rotations',cropsRotations);
 
 app.use('/Green_Thumb/Plots',plotsr);
 
