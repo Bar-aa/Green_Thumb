@@ -1,7 +1,7 @@
 const { body, param, validationResult } = require('express-validator');
 const { checkPlotIdExists } = require('../Validation/plotValidator');
 const { checkCropIdExists } = require('../Validation/cropValidator');
-
+const { getCropById} = require('../Persistence/CropsPlaningPersistence');
 const validateCropRotation = [
     body('plot_id')
         .isInt().withMessage('Plot ID must be an integer')
@@ -37,7 +37,13 @@ const validateCropRotation = [
 ];
 
 const validateCropRotationID = [
-    param('id').isInt().withMessage('Crop ID must be an integer'),
+    param('id').isInt().withMessage('Crop rotation ID must be an integer').custom( async (value, { req }) => {
+        const CropRotationExists = await checkCropRotationIdExists (value); 
+        if (!CropRotationExists) {
+            throw new Error('Crop Rotation ID does not exist in the database');
+        }
+        return true;
+    }),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -46,6 +52,16 @@ const validateCropRotationID = [
         next();
     }
 ];
+
+const checkCropRotationIdExists = async (id) => {
+    try {
+        const result = await getCropById(id);
+        return result!=null;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+};
 
 module.exports = {
     validateCropRotation,

@@ -62,6 +62,7 @@ const deleteCrop = async (req, res) => {
     const cropID = req.params.cropID;
     try {
         await CropPersistence.deleteCrop(cropID);
+        res.json({ message: 'Crop deleted successfully' });
         res.status(204).end();
     } catch (error) {
         res.status(500).json({ error: error.message });

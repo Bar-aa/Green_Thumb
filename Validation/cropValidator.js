@@ -26,7 +26,13 @@ const validateCrop = [
 ];
 
 const validateCropID = [
-    param('cropID').isInt().withMessage('Crop ID must be an integer'),
+    param('cropID').isInt().withMessage('Crop ID must be an integer').custom( async (value, { req }) => {
+        const cropExists = await checkCropIdExists (value,req.res); 
+        if (!cropExists) {
+            throw new Error('Crop ID does not exist in the database');
+        }
+        return true;
+    }),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
