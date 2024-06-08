@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 07 يونيو 2024 الساعة 18:18
+-- Generation Time: 07 يونيو 2024 الساعة 23:00
 -- إصدار الخادم: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,7 +33,6 @@ CREATE TABLE `crops` (
   `name` varchar(100) NOT NULL,
   `planting_date` date DEFAULT NULL,
   `expected_harvest_date` date DEFAULT NULL,
-  `previous_crop` varchar(100) NOT NULL,
   `activity` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -41,9 +40,31 @@ CREATE TABLE `crops` (
 -- إرجاع أو استيراد بيانات الجدول `crops`
 --
 
-INSERT INTO `crops` (`crop_id`, `plot_id`, `name`, `planting_date`, `expected_harvest_date`, `previous_crop`, `activity`) VALUES
-(1, 1, 'Tomatoes', '2024-04-01', '2024-06-15', '', ''),
-(2, 2, 'Carrots', '2024-03-15', '2024-07-01', '', '');
+INSERT INTO `crops` (`crop_id`, `plot_id`, `name`, `planting_date`, `expected_harvest_date`, `activity`) VALUES
+(1, 1, 'Tomatoes', '2024-04-01', '2024-06-15', ''),
+(2, 2, 'Carrots', '2024-03-15', '2024-07-01', '');
+
+-- --------------------------------------------------------
+
+--
+-- بنية الجدول `crop_rotation`
+--
+
+CREATE TABLE `crop_rotation` (
+  `rotation_id` int(11) NOT NULL,
+  `plot_id` int(11) NOT NULL,
+  `current_crop_id` int(11) NOT NULL,
+  `previous_crop_id` int(11) DEFAULT NULL,
+  `rotation_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- إرجاع أو استيراد بيانات الجدول `crop_rotation`
+--
+
+INSERT INTO `crop_rotation` (`rotation_id`, `plot_id`, `current_crop_id`, `previous_crop_id`, `rotation_date`) VALUES
+(1, 1, 1, NULL, '2024-06-01'),
+(2, 1, 2, 1, '2024-07-15');
 
 -- --------------------------------------------------------
 
@@ -275,6 +296,15 @@ ALTER TABLE `crops`
   ADD KEY `plot_id` (`plot_id`);
 
 --
+-- Indexes for table `crop_rotation`
+--
+ALTER TABLE `crop_rotation`
+  ADD PRIMARY KEY (`rotation_id`),
+  ADD KEY `fk_plot_id` (`plot_id`),
+  ADD KEY `fk_previous_crop_id` (`previous_crop_id`),
+  ADD KEY `fk_current_crop_id` (`current_crop_id`);
+
+--
 -- Indexes for table `gardens`
 --
 ALTER TABLE `gardens`
@@ -349,6 +379,12 @@ ALTER TABLE `crops`
   MODIFY `crop_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `crop_rotation`
+--
+ALTER TABLE `crop_rotation`
+  MODIFY `rotation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `gardens`
 --
 ALTER TABLE `gardens`
@@ -411,6 +447,14 @@ ALTER TABLE `weatherdata`
 --
 ALTER TABLE `crops`
   ADD CONSTRAINT `crops_ibfk_1` FOREIGN KEY (`plot_id`) REFERENCES `plots` (`plot_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- قيود الجداول `crop_rotation`
+--
+ALTER TABLE `crop_rotation`
+  ADD CONSTRAINT `fk_current_crop_id` FOREIGN KEY (`current_crop_id`) REFERENCES `crops` (`crop_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_plot_id` FOREIGN KEY (`plot_id`) REFERENCES `plots` (`plot_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_previous_crop_id` FOREIGN KEY (`previous_crop_id`) REFERENCES `crops` (`crop_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- قيود الجداول `knowledgebase`
