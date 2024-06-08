@@ -25,11 +25,11 @@ const getVolunteerById = async (req, res) => {
 };
 
 const getVolunteersByName = async (req, res) => {
-    const { Name } = req.params;
-    console.log(`Received Name: ${Name}`);
+    const { name } = req.params;
+    console.log(`Received Name: ${name}`);
     try {
-        const results = await volunteerPersistence.getVolunteersByName(Name);
-        if (results.length === 0) {
+        const results = await volunteerPersistence.getVolunteersByName(name);
+        if (results.length === 0 ) {
             return res.status(404).json({ message: 'Volunteer not found' });
         }
         res.json(results);

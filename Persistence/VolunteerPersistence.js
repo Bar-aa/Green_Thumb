@@ -25,10 +25,10 @@ const getVolunteerById = (id) => {
     });
 };
 
-const getVolunteersByName = (name) => {
-    const query = 'SELECT * FROM volunteers WHERE TRIM(name) = ?';
+const getVolunteersByName = async (name) => { 
+    const query = 'SELECT * FROM volunteers WHERE name = ?';
     return new Promise((resolve, reject) => {
-        db.query(query, [name.trim()], (err, results) => {
+        db.query(query, [name], (err, results) => {
             if (err) {
                 return reject(err);
             }
@@ -36,11 +36,11 @@ const getVolunteersByName = (name) => {
         });
     });
 };
-
 const getVolunteersByEventDate = (date) => {
-    const query = 'SELECT * FROM volunteers WHERE TRIM(event_date) = ?';
+    const query = 'SELECT * FROM volunteers WHERE event_date = ?';
     return new Promise((resolve, reject) => {
-        db.query(query, [date.trim()], (err, results) => {
+        const formattedDate = date.toISOString().split('T')[0]; 
+        db.query(query, [formattedDate], (err, results) => {
             if (err) {
                 return reject(err);
             }
