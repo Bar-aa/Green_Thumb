@@ -1,9 +1,9 @@
 
-const { getVolunteerById } = require('../Persistence/VolunteerPersistence');
+const { getUserById } = require('../Persistence/userPersistence');
 
 const checkAuthorIdExists = async (id) => {
     try {
-        const result = await getVolunteerById(id);
+        const result = await getUserById(id);
         return result.length !== 0;
     } catch (err) {
         console.error(err);
