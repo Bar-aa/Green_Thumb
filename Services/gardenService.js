@@ -65,9 +65,9 @@ const deleteGarden = async (req, res) => {
 };
 
 const getAllPlotsByGardenId = async (req, res) => {
-    const { gardenId } = req.params;
+    const { id } = req.params;
     try {
-        const results = await gardenPersistence.getAllPlotsByGardenId(gardenId);
+        const results = await gardenPersistence.getAllPlotsByGardenId(id);
         res.json(results);
     } catch (err) {
         console.error(err);
@@ -76,9 +76,9 @@ const getAllPlotsByGardenId = async (req, res) => {
 };
 
 const getAllCropsInGarden = async (req, res) => {
-    const { gardenId } = req.params;
+    const { id } = req.params;
     try {
-        const results = await gardenPersistence.getAllCropsInGarden(gardenId);
+        const results = await gardenPersistence.getAllCropsInGarden(id);
         res.json(results);
     } catch (err) {
         console.error(err);

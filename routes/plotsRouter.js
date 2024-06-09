@@ -1,11 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const plotController = require('../Services/plotService');
 
-router.get('/', plotController.getAllPlots);
-router.get('/:id', plotController.getPlotById);
-router.post('/', plotController.createPlot);
-router.put('/:id', plotController.updatePlot);
-router.delete('/:id', plotController.deletePlot);
+const {
+    getAllPlots,
+    getPlotById,
+    createPlot,
+    updatePlot,
+    deletePlot
+} = require('../Services/plotService')
+
+const {
+    validatePlot,
+    validatePlotID
+} = require('../Validation/plotValidator');
+
+const {
+    checkGardenIdExists
+} = require('../Validation/gardenValidator');
+
+router.get('/', getAllPlots);
+router.get('/:id', validatePlotID, getPlotById);
+router.post('/', validatePlot, checkGardenIdExists, createPlot); 
+router.put('/:id', validatePlotID, validatePlot, updatePlot);
+router.delete('/:id', validatePlotID, deletePlot);
 
 module.exports = router;
