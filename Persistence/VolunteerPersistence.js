@@ -1,4 +1,3 @@
-// volunteerPersistence.js
 const db = require('../config/dbconnection');
 
 const getAllVolunteers = () => {
