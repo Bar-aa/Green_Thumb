@@ -13,13 +13,13 @@ const router = express.Router();
 
 router.get('/show', getAllResources); // Move '/show' route above '/:owner_id'
 router.get('/idowner/:owner_id', getResourcesByOwnerId);
-router.post('/add',addResourceToDatabase);
 router.delete('/delete/:id', deleteResource);
 router.put('/update/:id',updateResource );
 router.get('/type/:type', getResourceByType);
+router.post('/add',addResourceToDatabase);
+
 
 
 
 module.exports = router;
-
 

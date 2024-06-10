@@ -70,7 +70,8 @@ const addResourceToDatabase = (type, description, owner_id) => {
     return new Promise((resolve, reject) => {
         db.query(query, [type, description, owner_id], (err, result) => {
             if (err) {
-                return reject(err);
+                console.error('Error executing INSERT query:', err);
+                return reject(new Error('An error occurred while adding the resource to the database'));
             }
             resolve(result);
         });
