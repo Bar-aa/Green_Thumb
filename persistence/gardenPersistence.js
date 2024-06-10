@@ -24,6 +24,8 @@ const getGardenById = (id) => {
     });
 };
 
+
+
 const createGarden = (gardenData) => {
     return new Promise((resolve, reject) => {
         const { name, location, sunlight_conditions, soil_type, available_plots } = gardenData;
