@@ -1,4 +1,3 @@
-// knowledgeController.js
 const knowledgePersistence = require('../Persistence/KnowledgeConfig');
 
 const getAllKnowledges = async (req, res) => {

@@ -23,6 +23,20 @@ const getCropByName = async (req, res) => {
     }
 };
 
+const getCropByID = async (req, res) => {
+    const id = req.params.cropID;
+    try {
+        const crop = await CropPersistence.getCropById(id);
+        if (!crop) {
+            return res.status(404).json({ message: 'Crop not found' });
+        }
+        res.json(crop);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
 const addCrop = async (req, res) => {
     const cropData = req.body;
     try {
@@ -48,6 +62,7 @@ const deleteCrop = async (req, res) => {
     const cropID = req.params.cropID;
     try {
         await CropPersistence.deleteCrop(cropID);
+        res.json({ message: 'Crop deleted successfully' });
         res.status(204).end();
     } catch (error) {
         res.status(500).json({ error: error.message });
