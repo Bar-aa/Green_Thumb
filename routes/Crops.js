@@ -11,7 +11,7 @@ const { validateCrop, validateCropID } = require('../Validation/cropValidator');
 
 router.get('/', getAllCrops);
 router.get('/:name', getCropByName);
-router.post('/', validateCrop, addCrop);
+router.post('/',validateCrop, addCrop);
 router.put('/:cropID', validateCropID, validateCrop, updateCrop);
 router.delete('/:cropID', validateCropID, deleteCrop);
 
