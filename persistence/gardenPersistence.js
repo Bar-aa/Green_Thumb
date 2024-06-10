@@ -62,10 +62,10 @@ const deleteGarden = (id) => {
     });
 };
 
-const getAllPlotsByGardenId = (gardenId) => {
+const getAllPlotsByGardenId = (id) => {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM plots WHERE garden_id = ?';
-        db.query(query, [gardenId], (err, results) => {
+        db.query(query, [id], (err, results) => {
             if (err) {
                 return reject(err);
             }
@@ -74,10 +74,10 @@ const getAllPlotsByGardenId = (gardenId) => {
     });
 };
 
-const getAllCropsInGarden = (gardenId) => {
+const getAllCropsInGarden = (id) => {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM crops WHERE plot_id IN (SELECT plot_id FROM plots WHERE garden_id = ?)';
-        db.query(query, [gardenId], (err, results) => {
+        db.query(query, [id], (err, results) => {
             if (err) {
                 return reject(err);
             }
