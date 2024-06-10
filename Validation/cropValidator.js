@@ -2,7 +2,7 @@ const { body, param, validationResult } = require('express-validator');
 const { getCropById } = require('../Persistence/CropsConfig');
 const { checkPlotIdExists } = require('../Validation/plotValidator');
 
-
+ 
 const validateCrop = [
     body('plot_id').isInt().withMessage('Plot ID must be an integer').custom( async (value, { req }) => {
         const plotExists = await checkPlotIdExists (value,req.res); 
