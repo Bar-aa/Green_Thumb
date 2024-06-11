@@ -16,6 +16,9 @@ const crops = require('./routes/Crops');
 const RouteVolunteers=require('./routes/VolunteerRoutes');
 const weather=require('./routes/weatherRoute');
 const bodyParser=require("body-parser");
+
+const RouteSignUp=require('./routes/UserSignUpRoutes');
+
 const app = express(); 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -37,7 +40,7 @@ app.use('/Green_Thumb/Crop-rotations',cropsRotations);
 app.use('/Green_Thumb/Plots',plotsr);
 
 app.use('/Green_Thumb/Volunteer',RouteVolunteers);
-
+app.use('/Green_Thumb/SignUp',RouteSignUp);
 
   
 
