@@ -2,7 +2,11 @@ const express = require("express");
 const cors = require("cors");
 require('dotenv').config(); 
 const bodyParser = require("body-parser");
+<<<<<<< HEAD
 
+=======
+// Require routes
+>>>>>>> f2f5d43d2ef5bdc64710d6505285d464161dfb24
 const cropsRotations = require('./routes/CropPlaning');
 const RouteKnowledge = require('./routes/KnowledgeRoute');
 const gardensRouter = require('./routes/gardensRouter');
@@ -14,27 +18,15 @@ const localpartnerships=require('./routes/LocalPartnershipRoute');
 const crops = require('./routes/Crops');
 const RouteVolunteers=require('./routes/VolunteerRoutes');
 const weather=require('./routes/weatherRoute');
+const RouteSignUp=require('./routes/UserSignUpRoutes');
+
+// Middleware
 const app = express(); 
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
 
-app.use('/Green_Thumb/localpartner',localpartnerships);
-app.use('/Green_Thumb/KnowledgeSharing',RouteKnowledge);
-app.use('/Green_Thumb/user',usersRoute);
-app.use('/Green_Thumb/resource',resource);
-
-app.use('/Green_Thumb/Gardens',gardensRouter);
-
-app.use('/',weather);
-
-
-// Middleware
-app.use(express.json()); // Parse JSON bodies
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors()); // Enable Cross-Origin Resource Sharing
 
 // Routes
 app.use('/Green_Thumb/localpartner', localpartnerships);
@@ -48,6 +40,7 @@ app.use('/Green_Thumb/Crop-rotations', cropsRotations);
 app.use('/Green_Thumb/Plots', plotsr);
 app.use('/Green_Thumb/Volunteer', RouteVolunteers);
 app.use('/Green_Thumb/resource',resource);
+app.use('/Green_Thumb/SignUp',RouteSignUp);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
