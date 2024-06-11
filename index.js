@@ -1,10 +1,8 @@
-// Require necessary modules
 const express = require("express");
 const cors = require("cors");
-require('dotenv').config(); // Load environment variables
+require('dotenv').config(); 
 const bodyParser = require("body-parser");
 
-// Require routes
 const cropsRotations = require('./routes/CropPlaning');
 const RouteKnowledge = require('./routes/KnowledgeRoute');
 const gardensRouter = require('./routes/gardensRouter');
