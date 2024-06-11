@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+const { checkDuplicates } = require('../Persistence/UserSignUpPersistence');
 
 const userValidationRules = [
     body('username')
@@ -33,12 +34,23 @@ const userValidationRules = [
         .optional()
         .isIn(['admin', 'member', 'author', 'volunteer'])
         .withMessage('Role must be one of admin, member, author, or volunteer'),
-    (req, res, next) => {
+    async (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        next();
+
+        const { username, email } = req.body;
+        try {
+            const hasDuplicates = await checkDuplicates(username, email);
+            if (hasDuplicates) {
+                return res.status(409).json({ message: 'Username or email already exists' });
+            }
+            next();
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ message: 'Internal server error' });
+        }
     }
 ];
 
