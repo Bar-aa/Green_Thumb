@@ -15,7 +15,7 @@ const crops = require('./routes/Crops');
 const RouteVolunteers=require('./routes/VolunteerRoutes');
 const weather=require('./routes/weatherRoute');
 const RouteSignUp=require('./routes/UserSignUpRoutes');
-
+const RouteEmail=require('./routes/EmailRoute');
 // Middleware
 const app = express(); 
 app.use(express.json());
@@ -37,7 +37,7 @@ app.use('/Green_Thumb/Plots', plotsr);
 app.use('/Green_Thumb/Volunteer', RouteVolunteers);
 app.use('/Green_Thumb/resource',resource);
 app.use('/Green_Thumb/SignUp',RouteSignUp);
-
+app.use('/Green_Thumb/Email',RouteEmail);
 // Error handling middleware
 app.use((err, req, res, next) => {
     err.statusCode = err.statusCode || 500;
