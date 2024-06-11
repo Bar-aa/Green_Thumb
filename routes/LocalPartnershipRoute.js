@@ -1,11 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const LocalPartnership = require('../Services/LocalPartnership');
+const {
+    showPartners,
+    getPartnerDetailsById,
+    getPartnersByName,
+    addPartnership,
+    updatePartnership,
+    deletePartner
+} = require('../Services/LocalPartnership');
 
-router.get('/ShowPartner', LocalPartnership.showPartners); 
-router.get('/:partnerId', LocalPartnership.getPartnerDetailsbyId); 
-router.get('/name/:Name', LocalPartnership.getParternsByName); 
-router.post('/addnew', LocalPartnership.addPartnership);
-router.put('/:partnership_id', LocalPartnership.UpdatePartnership);
-router.delete('/:partnership_id', LocalPartnership.deletePartner);
+router.get('/ShowPartner', showPartners); 
+router.get('/:partnerId', getPartnerDetailsById); 
+router.get('/name/:Name',getPartnersByName); 
+router.post('/addnew',addPartnership);
+router.put('/:partnership_id',updatePartnership);
+router.delete('/:partnership_id', deletePartner);
 module.exports = router;
