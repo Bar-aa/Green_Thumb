@@ -1,27 +1,4 @@
-/*const express = require("express");
-const router = express.Router();
-const {
-    showPartners,
-    getPartnerDetailsById,
-    getPartnersByName,
-    addPartnership,
-    updatePartnership,
-    deletePartner
-} = require('../Services/LocalPartnership');
-const {
-    validatePartnershipId,
-    validatePartnershipName,
-    validatePartnershipCreation,
-    validatePartnershipUpdate
-} = require('../Validation/partnersvalidation');
-router.get('/ShowPartner', showPartners); 
-router.get('/:partnerId',validatePartnershipId ,getPartnerDetailsById); 
-router.get('/name/:Name',validatePartnershipName,getPartnersByName); 
-router.post('/addnew',validatePartnershipCreation,addPartnership);
-router.put('/:partnership_id',validatePartnershipUpdate,updatePartnership);
-router.delete('/:partnership_id',validatePartnershipId, deletePartner);
-module.exports = router;
-*/
+
 const express = require("express");
 const router = express.Router();
 const {
