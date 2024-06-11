@@ -15,6 +15,7 @@ const crops = require('./routes/Crops');
 const RouteVolunteers = require('./routes/VolunteerRoutes');
 const signAuthRoutes = require('./routes/signinAuthRoute');
 const weather = require('./routes/weatherRoute');
+const resource=require('./routes/resourceRoute');
 
 // Create Express app
 const app = express();
@@ -36,6 +37,7 @@ app.use('/Green_Thumb/Crops', crops);
 app.use('/Green_Thumb/Crop-rotations', cropsRotations);
 app.use('/Green_Thumb/Plots', plotsr);
 app.use('/Green_Thumb/Volunteer', RouteVolunteers);
+app.use('/Green_Thumb/resource',resource);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
