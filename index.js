@@ -9,13 +9,31 @@ const cropsRotations = require('./routes/CropPlaning');
 const RouteKnowledge = require('./routes/KnowledgeRoute');
 const gardensRouter = require('./routes/gardensRouter');
 const plotsr = require('./routes/plotsRouter');
-const usersRoute = require('./routes/userRoute');
-const localpartnerships = require('./routes/LocalPartnershipRoute');
-const crops = require('./routes/Crops');
-const RouteVolunteers = require('./routes/VolunteerRoutes');
+
 const signAuthRoutes = require('./routes/signinAuthRoute');
-const weather = require('./routes/weatherRoute');
+
+const usersRoute=require('./routes/userRoute');
 const resource=require('./routes/resourceRoute');
+const localpartnerships=require('./routes/LocalPartnershipRoute');
+const crops = require('./routes/Crops');
+const RouteVolunteers=require('./routes/VolunteerRoutes');
+const weather=require('./routes/weatherRoute');
+const bodyParser=require("body-parser");
+const app = express(); 
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(cors());
+
+app.use('/Green_Thumb/localpartner',localpartnerships);
+app.use('/Green_Thumb/KnowledgeSharing',RouteKnowledge);
+app.use('/Green_Thumb/user',usersRoute);
+app.use('/Green_Thumb/resource',resource);
+
+app.use('/Green_Thumb/Gardens',gardensRouter);
+
+app.use('/',weather);
+
 
 // Create Express app
 const app = express();
