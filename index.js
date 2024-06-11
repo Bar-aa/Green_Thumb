@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 require('dotenv').config(); // Load environment variables
 const bodyParser = require("body-parser");
-
+const app = express();
 // Require routes
 const cropsRotations = require('./routes/CropPlaning');
 const RouteKnowledge = require('./routes/KnowledgeRoute');
@@ -18,8 +18,7 @@ const localpartnerships=require('./routes/LocalPartnershipRoute');
 const crops = require('./routes/Crops');
 const RouteVolunteers=require('./routes/VolunteerRoutes');
 const weather=require('./routes/weatherRoute');
-const bodyParser=require("body-parser");
-const app = express(); 
+
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -36,7 +35,7 @@ app.use('/',weather);
 
 
 // Create Express app
-const app = express();
+//const app = express();
 
 // Middleware
 app.use(express.json()); // Parse JSON bodies
