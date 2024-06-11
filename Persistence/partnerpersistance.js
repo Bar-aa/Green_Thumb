@@ -26,9 +26,10 @@ const getPartnershipById = async (partnerId) => {
 };
 
 const getPartnershipByName = async (name) => {
+    
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM localpartnerships WHERE TRIM(name) = ?';
-        db.query(query, [name.trim()], (error, results) => {
+        const query = 'SELECT * FROM localpartnerships WHERE name = ?';
+        db.query(query, [name], (error, results) => {
             if (error) {
                 reject(error);
             } else {

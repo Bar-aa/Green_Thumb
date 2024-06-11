@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 require('dotenv').config(); // Load environment variables
 const bodyParser = require("body-parser");
-
+const app = express();
 // Require routes
 const cropsRotations = require('./routes/CropPlaning');
 const RouteKnowledge = require('./routes/KnowledgeRoute');
@@ -24,6 +24,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors());
+
 
 // Routes
 app.use('/Green_Thumb/localpartner', localpartnerships);
