@@ -2,11 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require('dotenv').config(); 
 const bodyParser = require("body-parser");
-<<<<<<< HEAD
 
-=======
-// Require routes
->>>>>>> f2f5d43d2ef5bdc64710d6505285d464161dfb24
 const cropsRotations = require('./routes/CropPlaning');
 const RouteKnowledge = require('./routes/KnowledgeRoute');
 const gardensRouter = require('./routes/gardensRouter');
