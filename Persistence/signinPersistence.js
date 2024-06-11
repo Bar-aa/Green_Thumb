@@ -11,9 +11,9 @@ const getUserByUsernameOrEmail = (usernameOrEmail) => {
                 return reject(err);
             }
             if (results.length === 0) {
-                return resolve(null); // User not found
+                return resolve(null); 
             }
-            resolve(results[0]); // Return user
+            resolve(results[0]); 
         });
     });
 };
