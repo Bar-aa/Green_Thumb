@@ -55,6 +55,7 @@ app.use('/Green_Thumb/Crops', crops);
 app.use('/Green_Thumb/Crop-rotations', cropsRotations);
 app.use('/Green_Thumb/Plots', plotsr);
 app.use('/Green_Thumb/Volunteer', RouteVolunteers);
+app.use('/Green_Thumb/resource',resource);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
