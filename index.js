@@ -10,7 +10,7 @@ const RouteKnowledge=require('./routes/KnowledgeRoute');
 const gardensRouter=require('./routes/gardensRouter');
 const plotsr = require('./routes/plotsRouter');
 const usersRoute=require('./routes/userRoute');
-
+const resource=require('./routes/resourceRoute');
 const localpartnerships=require('./routes/LocalPartnershipRoute');
 const crops = require('./routes/Crops');
 const RouteVolunteers=require('./routes/VolunteerRoutes');
@@ -25,7 +25,7 @@ app.use(cors());
 app.use('/Green_Thumb/localpartner',localpartnerships);
 app.use('/Green_Thumb/KnowledgeSharing',RouteKnowledge);
 app.use('/Green_Thumb/user',usersRoute);
-
+app.use('/Green_Thumb/resource',resource);
 
 app.use('/Green_Thumb/Gardens',gardensRouter);
 
