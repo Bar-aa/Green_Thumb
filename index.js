@@ -9,9 +9,7 @@ const cropsRotations = require('./routes/CropPlaning');
 const RouteKnowledge = require('./routes/KnowledgeRoute');
 const gardensRouter = require('./routes/gardensRouter');
 const plotsr = require('./routes/plotsRouter');
-
 const signAuthRoutes = require('./routes/signinAuthRoute');
-
 const usersRoute=require('./routes/userRoute');
 const resource=require('./routes/resourceRoute');
 const localpartnerships=require('./routes/LocalPartnershipRoute');
