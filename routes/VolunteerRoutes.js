@@ -1,22 +1,28 @@
-const express=require("express");
-const router=express.Router();
-const {getVolunteersByName,
+const express = require('express');
+const router = express.Router();
+const {
+    getVolunteersByName,
     getVolunteersByEventDate,
     getAllVolunteers,
     getVolunteerById,
     addNewVolunteer,
     updateVolunteer,
-    deleteVolunteer} = require('../Services/Volunteer');
-router.get('/name/:Name', getVolunteersByName);
-router.get('/date/:Date', getVolunteersByEventDate);
+    deleteVolunteer
+} = require('../Services/Volunteer');
+
+const {
+    validateVolunteerName,
+    validateVolunteer,
+    validateVolunteerID,
+    validateVolunteerDate
+} = require('../Validation/VolunteerValidation');
+
+router.get('/name/:name', validateVolunteerName, getVolunteersByName);
+router.get('/date/:Date', validateVolunteerDate, getVolunteersByEventDate);
 router.get('/', getAllVolunteers);
-router.get('/:id', getVolunteerById);
-router.post('/', addNewVolunteer);
-router.put('/:id', updateVolunteer);
-router.delete('/:id', deleteVolunteer);
+router.get('/:id', validateVolunteerID, getVolunteerById);
+router.post('/', validateVolunteer, addNewVolunteer);
+router.put('/:id', validateVolunteerID, validateVolunteer, updateVolunteer);
+router.delete('/:id', validateVolunteerID, deleteVolunteer);
 
-
-
-
-module.exports=router;
-
+module.exports = router;

@@ -1,124 +1,101 @@
 const db = require('../config/dbconnection');
 
-const showPartners = (req, res) => {
-    db.query(
-        'SELECT * FROM localpartnerships',
-        (error, results) => {
-            if (error) {
-                console.error('Error executing SELECT query:', error);
-                return res.status(500).json({ success: false, error: 'An error occurred while retrieving partnerships' });
-            }
-            res.status(200).json({ success: true, message: 'All partnerships retrieved successfully', partnerships: results });
-        }
-    );
+
+  const partnershipPersistence = require('../Persistence/partnerpersistance');
+
+const showPartners = async (req, res) => {
+    try {
+        const results = await partnershipPersistence.getAllPartnerships();
+        res.status(200).json({ success: true, message: 'All partnerships retrieved successfully', partnerships: results });
+    } catch (error) {
+        console.error('Error retrieving partnerships:', error);
+        res.status(500).json({ success: false, error: 'An error occurred while retrieving partnerships' });
+    }
 };
 
-
-
-
-const getPartnerDetailsbyId = (req, res) => {
+const getPartnerDetailsById = async (req, res) => {
     const { partnerId } = req.params;
-
-    const query = 'SELECT * FROM localpartnerships WHERE partnership_id = ?';
-    db.query(query, [partnerId], (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
-        }
+    try {
+        const result = await partnershipPersistence.getPartnershipById(partnerId);
         if (result.length === 0) {
-            return res.status(404).json({ message: ' Partners not found' });
+            res.status(404).json({ message: 'Partners not found' });
+        } else {
+            res.json(result[0]);
         }
-        res.json(result[0]);
-    });
+    } catch (error) {
+        console.error('Error retrieving partner details:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 };
 
-const getParternsByName = (req, res) => {
-    const {Name} = req.params;
-
-    // Print the title for debugging purposes
-    console.log(`Received Name: ${Name}`);
-
-    const query = 'SELECT * FROM localpartnerships  WHERE TRIM(name) = ?';
-    db.query(query, [Name.trim()], (err, results) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
-        }
+const getPartnersByName = async (req, res) => {
+    const { Name } = req.params;
+    try {
+        const results = await partnershipPersistence.getPartnershipByName(Name);
         if (results.length === 0) {
-            return res.status(404).json({ message: 'Partners is not found' });
+            res.status(404).json({ message: 'Partners not found' });
+        } else {
+            res.json(results);
         }
-        res.json(results);
-    });
+    } catch (error) {
+        console.error('Error retrieving partners by name:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 };
 
-const addPartnership = (req, res) => {
+const addPartnership = async (req, res) => {
     const { name, description, contact_info } = req.body;
-    
-    // Check if all required fields are present
     if (!name || !description || !contact_info) {
         return res.status(400).json({ message: 'Missing important fields' });
     }
-
-    const query = 'INSERT INTO localpartnerships (name, description, contact_info) VALUES (?, ?, ?)';
-    db.query(query, [name, description, contact_info], (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
-        }
-        res.status(201).json({ id: result.insertId, name, description, contact_info });
-    });
+    try {
+        const insertId = await partnershipPersistence.createPartnership(name, description, contact_info);
+        res.status(201).json({ id: insertId, name, description, contact_info });
+    } catch (error) {
+        console.error('Error adding partnership:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 };
 
-const UpdatePartnership = (req, res) => {
+const updatePartnership = async (req, res) => {
     const { partnership_id } = req.params;
     const { name, description, contact_info } = req.body;
-
-    // Check if all required fields are present
     if (!name || !description || !contact_info) {
         return res.status(400).json({ message: 'Missing important fields' });
     }
-
-    const query = 'UPDATE localpartnerships SET name = ?, description = ?, contact_info = ? WHERE partnership_id = ?';
-    db.query(query, [name, description, contact_info, partnership_id], (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
+    try {
+        const affectedRows = await partnershipPersistence.updatePartnership(partnership_id, name, description, contact_info);
+        if (affectedRows === 0) {
+            res.status(404).json({ message: 'Partnership not found' });
+        } else {
+            res.status(200).json({ message: 'Partnership updated successfully' });
         }
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: 'Partnership not found' });
-        }
-        res.status(200).json({ message: 'Partnership updated successfully' });
-    });
+    } catch (error) {
+        console.error('Error updating partnership:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 };
 
-const deletePartner = (req, res) => {
+const deletePartner = async (req, res) => {
     const { partnership_id } = req.params;
-
-    const query = 'DELETE FROM localpartnerships WHERE partnership_id = ?';
-    db.query(query, [partnership_id], (err, result) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
+    try {
+        const affectedRows = await partnershipPersistence.deletePartnership(partnership_id);
+        if (affectedRows === 0) {
+            res.status(404).json({ message: 'Partnership not found' });
+        } else {
+            res.status(200).json({ message: 'Partnership deleted successfully' });
         }
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: 'Partnership not found' });
-        }
-        res.status(200).json({ message: 'Partnership deleted successfully' });
-    });
+    } catch (error) {
+        console.error('Error deleting partnership:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
 };
-
-
-
-
-
-
-
 
 module.exports = {
     showPartners,
-    getPartnerDetailsbyId,
-    getParternsByName,
+    getPartnerDetailsById,
+    getPartnersByName,
     addPartnership,
-    UpdatePartnership,
+    updatePartnership,
     deletePartner
-  };
+};
