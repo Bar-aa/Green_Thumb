@@ -1,5 +1,5 @@
-const Joi = require('joi');
 
+const Joi = require('joi');
 
 const emailSchema = Joi.object({
     email: Joi.string().email().required(),
@@ -8,6 +8,7 @@ const emailSchema = Joi.object({
 const resetPasswordSchema = Joi.object({
     email: Joi.string().email().required(),
     username: Joi.string().required(),
+    newPassword: Joi.string().required(), // No length requirement
 });
 
 const validateEmail = (req, res, next) => {

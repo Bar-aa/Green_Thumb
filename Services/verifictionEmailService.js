@@ -2,7 +2,7 @@
 const bcrypt = require('bcryptjs');
 const PersistenceEmail = require('../Persistence/EmailPresistance');
 const nodemailer = require('nodemailer');
-
+const db = require('../config/dbconnection');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -28,7 +28,7 @@ const verifyEmail = async (req, res) => {
     }
 
     try {
-        const affectedRows = await PersistenceEmail .updateUserMessage(email, 'verified successfully');
+        const affectedRows = await PersistenceEmail.updateUserMessage(email, 'verified successfully');
         
         if (affectedRows === 0) {
             return res.status(404).send({ msg: 'Invalid verification token' });
@@ -41,15 +41,14 @@ const verifyEmail = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-    const { email, username } = req.body;
+    const { email, username, newPassword } = req.body;
 
-    if (!email) {
-        return res.status(400).send({ msg: 'Email is missing' });
+    if (!email || !newPassword) {
+        return res.status(400).send({ msg: 'Email or new password is missing' });
     }
 
-    const newPassword = Math.floor(1000 + Math.random() * 9000).toString();
-
     try {
+        // Hash the new password before updating
         const hash = await bcrypt.hash(newPassword, 10);
         const affectedRows = await PersistenceEmail.updateUserPassword(username, hash);
 
@@ -57,11 +56,15 @@ const resetPassword = async (req, res) => {
             return res.status(404).send({ msg: 'User not found' });
         }
 
+        // Send email with the new password
         const mailOptions = {
             from: 's12028958@stu.najah.edu',
             to: email,
             subject: 'Your New Password',
-            text: `Your new password is: ${newPassword}`
+            //text: `Hi: ${username} Welcome, we are honored to have you. I hope you benefit from this site`,
+            text:`Welcome, ${username} 
+             we are honored to have you I hope you benefit from this site The password for the website Green_Thumb has been changed 
+            (The new password is: ${newPassword})`
         };
 
         await sendEmail(mailOptions);
@@ -74,5 +77,8 @@ const resetPassword = async (req, res) => {
 
 module.exports = {
     verifyEmail,
-    resetPassword
+    resetPassword,
+   
+   
+    
 };
