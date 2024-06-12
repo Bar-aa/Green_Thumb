@@ -1,3 +1,4 @@
+// signinPersistence.js
 const db = require('../config/dbconnection');
 const bcrypt = require('bcryptjs');
 
