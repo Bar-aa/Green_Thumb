@@ -14,12 +14,13 @@ const {
     validateKnowledgeCreation,
     validateKnowledgeUpdate
 } = require('../Validation/KnowledgeValidation');
-
-router.get('/title/:title', validateKnowledgeTitle, getKnowledgeByTitle);
-router.get('/', getAllKnowledges);
-router.post('/', validateKnowledgeCreation, createKnowledgeItem);
-router.put('/:id', validateKnowledgeUpdate, updateKnowledge);
-router.delete('/:id', validateKnowledgeId, deleteKnowledge);
-router.get('/:id', validateKnowledgeId, getKnowledgeById);
+const { authenticateToken} = require('../middleware/authenticateToken');
+const { authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners} = require('../middleware/authorize');
+router.get('/title/:title', validateKnowledgeTitle,authenticateToken, authorizeAdmin,getKnowledgeByTitle);
+router.get('/', authenticateToken, authorizeAdmin,getAllKnowledges);
+router.post('/', validateKnowledgeCreation, authenticateToken, authorizeAdmin,createKnowledgeItem);
+router.put('/:id', validateKnowledgeUpdate,authenticateToken, authorizeAdmin, updateKnowledge);
+router.delete('/:id', validateKnowledgeId,authenticateToken, authorizeAdmin, deleteKnowledge);
+router.get('/:id', validateKnowledgeId,authenticateToken, authorizeAdmin, getKnowledgeById);
 
 module.exports = router;

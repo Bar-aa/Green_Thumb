@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 07 يونيو 2024 الساعة 23:00
--- إصدار الخادم: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: 13 يونيو 2024 الساعة 15:14
+-- إصدار الخادم: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,6 @@ CREATE TABLE `crops` (
 --
 
 INSERT INTO `crops` (`crop_id`, `plot_id`, `name`, `planting_date`, `expected_harvest_date`, `activity`) VALUES
-(1, 1, 'Tomatoes', '2024-04-01', '2024-06-15', ''),
 (2, 2, 'Carrots', '2024-03-15', '2024-07-01', '');
 
 -- --------------------------------------------------------
@@ -57,14 +56,6 @@ CREATE TABLE `crop_rotation` (
   `previous_crop_id` int(11) DEFAULT NULL,
   `rotation_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- إرجاع أو استيراد بيانات الجدول `crop_rotation`
---
-
-INSERT INTO `crop_rotation` (`rotation_id`, `plot_id`, `current_crop_id`, `previous_crop_id`, `rotation_date`) VALUES
-(1, 1, 1, NULL, '2024-06-01'),
-(2, 1, 2, 1, '2024-07-15');
 
 -- --------------------------------------------------------
 
@@ -111,7 +102,6 @@ CREATE TABLE `knowledgebase` (
 --
 
 INSERT INTO `knowledgebase` (`article_id`, `title`, `content`, `author_id`, `created_at`, `updated_at`) VALUES
-(1, 'How to Grow Tomatoes', 'Tomatoes need full sun and regular watering...', 1, '2024-06-07 15:08:14', '2024-06-07 15:08:14'),
 (2, 'Composting Basics', 'Composting is a great way to recycle...', 2, '2024-06-07 15:08:14', '2024-06-07 15:08:14');
 
 -- --------------------------------------------------------
@@ -158,9 +148,7 @@ CREATE TABLE `plots` (
 --
 
 INSERT INTO `plots` (`plot_id`, `garden_id`, `user_id`, `plot_number`, `size`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 101, '10x10', '2024-06-07 15:08:14', '2024-06-07 15:08:14'),
-(2, 1, 2, 102, '15x15', '2024-06-07 15:08:14', '2024-06-07 15:08:14'),
-(3, 2, 1, 201, '12x12', '2024-06-07 15:08:14', '2024-06-07 15:08:14');
+(2, 1, 2, 102, '15x15', '2024-06-07 15:08:14', '2024-06-07 15:08:14');
 
 -- --------------------------------------------------------
 
@@ -182,9 +170,7 @@ CREATE TABLE `resources` (
 --
 
 INSERT INTO `resources` (`resource_id`, `type`, `description`, `owner_id`, `created_at`, `updated_at`) VALUES
-(1, 'tool', 'Shovel', 1, '2024-06-07 15:08:14', '2024-06-07 15:08:14'),
-(2, 'seed', 'Tomato Seeds', 2, '2024-06-07 15:08:14', '2024-06-07 15:08:14'),
-(3, 'compost', 'Organic Compost', 1, '2024-06-07 15:08:14', '2024-06-07 15:08:14');
+(2, 'seed', 'Tomato Seeds', 2, '2024-06-07 15:08:14', '2024-06-07 15:08:14');
 
 -- --------------------------------------------------------
 
@@ -206,8 +192,8 @@ CREATE TABLE `soildata` (
 --
 
 INSERT INTO `soildata` (`soil_id`, `garden_id`, `sample_date`, `ph_level`, `nutrients`, `created_at`) VALUES
-(1, 1, '2024-05-01', 6.5, 'NPK: 10-10-10', '2024-06-07 15:08:14'),
-(2, 2, '2024-05-10', 7.0, 'NPK: 8-8-8', '2024-06-07 15:08:14');
+(1, 1, '2024-05-01', '6.5', 'NPK: 10-10-10', '2024-06-07 15:08:14'),
+(2, 2, '2024-05-10', '7.0', 'NPK: 8-8-8', '2024-06-07 15:08:14');
 
 -- --------------------------------------------------------
 
@@ -222,18 +208,21 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `role` enum('admin','member') DEFAULT 'member',
+  `role` enum('admin','member','volunteer','parteners') DEFAULT 'member',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `message` varchar(255) DEFAULT 'message'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- إرجاع أو استيراد بيانات الجدول `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password_hash`, `email`, `first_name`, `last_name`, `role`, `created_at`, `updated_at`) VALUES
-(1, 'user1', 'password1', 'user1@example.com', NULL, NULL, 'member', '2024-06-07 15:08:14', '2024-06-07 15:08:14'),
-(2, 'user2', 'password2', 'user2@example.com', NULL, NULL, 'member', '2024-06-07 15:08:14', '2024-06-07 15:08:14');
+INSERT INTO `users` (`user_id`, `username`, `password_hash`, `email`, `first_name`, `last_name`, `role`, `created_at`, `updated_at`, `message`) VALUES
+(2, 'Alaa', '$2a$10$.PtyKqmd78oOoR16Uc0uBeOkX4j//gQ4Xe86AF/9hokD18P3mLihS', 's12240399@stu.najah.edu', NULL, NULL, 'volunteer', '2024-06-07 15:08:14', '2024-06-13 13:13:36', 'verified successfully'),
+(3, 'samaa', '$2a$10$BQ670xAXkbCBfquvT89/puEsfifHCgSKlnjtI0avcd5pvY8FifODi', 's12027958@stu.najah.edu', NULL, NULL, 'member', '2024-06-11 18:26:53', '2024-06-12 05:34:34', 'verified successfully'),
+(4, 'tala', '$2a$10$mMWytZ/QkpvjiSMBLHEMjuwRLyKdVSyu0o/wO8TTd3pPKWijl7m9W', 's12010504@stu.najah.edu', NULL, NULL, 'member', '2024-06-11 18:32:13', '2024-06-12 07:06:06', 'verified successfully'),
+(8, 'bb', '$2a$10$3zrGY7phiyvU3RTVEIzZQu1qWagCQyfB7i7wpA4YM.OuayLrLP1pq', 's12028958@stu.najah.edu', NULL, NULL, 'member', '2024-06-12 06:56:13', '2024-06-12 08:14:53', 'verified successfully');
 
 -- --------------------------------------------------------
 
@@ -257,7 +246,6 @@ CREATE TABLE `volunteers` (
 --
 
 INSERT INTO `volunteers` (`volunteer_id`, `user_id`, `garden_id`, `event_date`, `role`, `email`, `name`, `phone_number`) VALUES
-(1, 1, 1, '2024-06-01', 'Planting Coordinator', NULL, NULL, NULL),
 (2, 2, 2, '2024-06-05', 'Watering Team', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -281,8 +269,8 @@ CREATE TABLE `weatherdata` (
 --
 
 INSERT INTO `weatherdata` (`weather_id`, `garden_id`, `date`, `temperature`, `humidity`, `precipitation`, `created_at`) VALUES
-(1, 1, '2024-06-01', 75.50, 60.50, 0.20, '2024-06-07 15:08:14'),
-(2, 2, '2024-06-01', 80.00, 55.00, 0.00, '2024-06-07 15:08:14');
+(1, 1, '2024-06-01', '75.50', '60.50', '0.20', '2024-06-07 15:08:14'),
+(2, 2, '2024-06-01', '80.00', '55.00', '0.00', '2024-06-07 15:08:14');
 
 --
 -- Indexes for dumped tables
@@ -424,7 +412,7 @@ ALTER TABLE `soildata`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `volunteers`
@@ -439,17 +427,17 @@ ALTER TABLE `weatherdata`
   MODIFY `weather_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- قيود الجداول المُلقاة.
+-- قيود الجداول المحفوظة
 --
 
 --
--- قيود الجداول `crops`
+-- القيود للجدول `crops`
 --
 ALTER TABLE `crops`
   ADD CONSTRAINT `crops_ibfk_1` FOREIGN KEY (`plot_id`) REFERENCES `plots` (`plot_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `crop_rotation`
+-- القيود للجدول `crop_rotation`
 --
 ALTER TABLE `crop_rotation`
   ADD CONSTRAINT `fk_current_crop_id` FOREIGN KEY (`current_crop_id`) REFERENCES `crops` (`crop_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -457,39 +445,39 @@ ALTER TABLE `crop_rotation`
   ADD CONSTRAINT `fk_previous_crop_id` FOREIGN KEY (`previous_crop_id`) REFERENCES `crops` (`crop_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `knowledgebase`
+-- القيود للجدول `knowledgebase`
 --
 ALTER TABLE `knowledgebase`
   ADD CONSTRAINT `knowledgebase_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `plots`
+-- القيود للجدول `plots`
 --
 ALTER TABLE `plots`
   ADD CONSTRAINT `plots_ibfk_1` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `plots_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `resources`
+-- القيود للجدول `resources`
 --
 ALTER TABLE `resources`
   ADD CONSTRAINT `resources_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `soildata`
+-- القيود للجدول `soildata`
 --
 ALTER TABLE `soildata`
   ADD CONSTRAINT `soildata_ibfk_1` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `volunteers`
+-- القيود للجدول `volunteers`
 --
 ALTER TABLE `volunteers`
   ADD CONSTRAINT `volunteers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `volunteers_ibfk_2` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- قيود الجداول `weatherdata`
+-- القيود للجدول `weatherdata`
 --
 ALTER TABLE `weatherdata`
   ADD CONSTRAINT `weatherdata_ibfk_1` FOREIGN KEY (`garden_id`) REFERENCES `gardens` (`garden_id`) ON DELETE CASCADE ON UPDATE CASCADE;
