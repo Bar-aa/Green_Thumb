@@ -1,6 +1,5 @@
-const jwt = require('jsonwebtoken');
-
 const { getUserByUsernameOrEmail, verifyPassword } = require('../Persistence/signinPersistence');
+const { generateToken } = require('../Services/token_generate'); // Update the path accordingly
 
 const loginUser = async (usernameOrEmail, password) => {
     try {
@@ -14,15 +13,8 @@ const loginUser = async (usernameOrEmail, password) => {
             throw new Error('Invalid password');
         }
 
-        // Generate JWT token
-        const token = jwt.sign({
-            userId: user.id,
-            username: user.username,
-            email: user.email,
-            role: user.role
-        }, 'your_secret_key_here', { expiresIn: '1h' }); // Adjust expiration time as needed
+        const token = generateToken(user);
 
-        // Return token along with user information
         return {
             token,
             userId: user.id,
@@ -36,5 +28,5 @@ const loginUser = async (usernameOrEmail, password) => {
 };
 
 module.exports = {
-    loginUser,
+    loginUser
 };
