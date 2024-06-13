@@ -17,11 +17,12 @@ const {
 const {
     checkGardenIdExists
 } = require('../Validation/gardenValidator');
-
-router.get('/', getAllPlots);
-router.get('/:id', validatePlotID, getPlotById);
-router.post('/', validatePlot, checkGardenIdExists, createPlot); 
-router.put('/:id', validatePlotID, validatePlot, updatePlot);
-router.delete('/:id', validatePlotID, deletePlot);
+const { authenticateToken} = require('../middleware/authenticateToken');
+const { authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners} = require('../middleware/authorize');
+router.get('/', authenticateToken,authorizeAdmin,getAllPlots);
+router.get('/:id', validatePlotID,authenticateToken,authorizeAdmin, getPlotById);
+router.post('/', validatePlot, authenticateToken,authorizeAdmin,checkGardenIdExists, createPlot); 
+router.put('/:id', validatePlotID, validatePlot, authenticateToken,authorizeAdmin,updatePlot);
+router.delete('/:id', validatePlotID,authenticateToken,authorizeAdmin, deletePlot);
 
 module.exports = router;

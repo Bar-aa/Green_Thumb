@@ -16,13 +16,14 @@ const {
     validatePartnershipUpdate,
     validatePartnershipDelete
 } = require('../Validation/partnersvalidation');
-
+const { authenticateToken} = require('../middleware/authenticateToken');
+const { authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners} = require('../middleware/authorize');
 // Define routes
-router.get('/ShowPartner', showPartners); 
-router.get('/:partnerId', validatePartnershipId, getPartnerDetailsById); 
-router.get('/name/:Name',validatePartnershipName , getPartnersByName); 
-router.post('/addnew', validatePartnershipCreation, addPartnership);
-router.put('/:partnership_id', validatePartnershipUpdate, updatePartnership);
-router.delete('/:partnership_id', validatePartnershipDelete, deletePartner);
+router.get('/ShowPartner', authenticateToken,authorizeAdmin,showPartners); 
+router.get('/:partnerId', validatePartnershipId,authenticateToken,authorizeAdmin, getPartnerDetailsById); 
+router.get('/name/:Name',validatePartnershipName ,authenticateToken,authorizeAdmin, getPartnersByName); 
+router.post('/addnew', validatePartnershipCreation,authenticateToken,authorizeAdmin, addPartnership);
+router.put('/:partnership_id', validatePartnershipUpdate, authenticateToken,authorizeAdmin,updatePartnership);
+router.delete('/:partnership_id', validatePartnershipDelete,authenticateToken,authorizeAdmin, deletePartner);
 
 module.exports = router;

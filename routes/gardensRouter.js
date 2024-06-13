@@ -17,13 +17,14 @@ module.exports = {
     checkGardenIdExists
 }=require('../Validation/gardenValidator');
 
-
-router.get('/', getAllGardens,);
-router.get('/:id',validateGardenID, getGardenById);
-router.post('/', validateGarden,createGarden);
-router.put('/:id',validateGardenID,validateGarden ,updateGarden);
-router.delete('/:id', validateGardenID,deleteGarden);
-router.get('/:id/plots', validateGardenID,getAllPlotsByGardenId);
-router.get('/:id/crops',validateGardenID, getAllCropsInGarden);
+const { authenticateToken} = require('../middleware/authenticateToken');
+const { authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners} = require('../middleware/authorize');
+router.get('/',authenticateToken, authorizeAdmin, getAllGardens,);
+router.get('/:id',validateGardenID,authenticateToken, authorizeAdmin, getGardenById);
+router.post('/', validateGarden,authenticateToken, authorizeAdmin,createGarden);
+router.put('/:id',validateGardenID,validateGarden ,authenticateToken, authorizeAdmin,updateGarden);
+router.delete('/:id', validateGardenID,authenticateToken, authorizeAdmin,deleteGarden);
+router.get('/:id/plots', validateGardenID,authenticateToken, authorizeAdmin,getAllPlotsByGardenId);
+router.get('/:id/crops',validateGardenID, authenticateToken, authorizeAdmin,getAllCropsInGarden);
 
 module.exports = router;
