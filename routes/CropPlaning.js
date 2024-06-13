@@ -9,12 +9,12 @@ const {
 } = require('../Services/CropPlaningService');
 const { validateCropRotation, validateCropRotationID} = require('../Validation/cropRotationValidator');
 const { authenticateToken} = require('../middleware/authenticateToken');
-const { authorize} = require('../middleware/authorize');
+const { authorizeRoles} = require('../middleware/authorize');
 
-router.get('/',authenticateToken,authorize,getAllCropRotations);
-router.get('/:id',validateCropRotationID ,authenticateToken,authorize,getCropRotationById);
-router.post('/', validateCropRotation,authenticateToken, authorize,addCropRotation);
-router.put('/:id', validateCropRotation,authenticateToken,authorize, updateCropRotation);
-router.delete('/:id',validateCropRotationID,authenticateToken,authorize, deleteCropRotation);
+router.get('/',authenticateToken,authorizeRoles(['admin']),getAllCropRotations);
+router.get('/:id',validateCropRotationID ,authenticateToken,authorizeRoles(['admin','member']),getCropRotationById);
+router.post('/', validateCropRotation,authenticateToken, authorizeRoles(['admin','member']),addCropRotation);
+router.put('/:id', validateCropRotation,authenticateToken,authorizeRoles(['admin','member']), updateCropRotation);
+router.delete('/:id',validateCropRotationID,authenticateToken,authorizeRoles(['admin','member']), deleteCropRotation);
 
 module.exports = router;

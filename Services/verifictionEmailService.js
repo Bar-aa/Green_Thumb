@@ -34,41 +34,38 @@ const verifyEmail = async (req, res) => {
             return res.status(404).send({ msg: 'Invalid verification token' });
         }
 
-        res.status(200).send({ msg: 'Email verified successfully! You can now login.' });
+        res.status(200).send({ msg: 'Email verified successfully! ' });
     } catch (error) {
         res.status(500).send({ msg: error.message });
     }
 };
 
 const resetPassword = async (req, res) => {
-    const { email, username, newPassword } = req.body;
-
+    const email= req.user.email;
+    const username =req.user.username;
+    const newPassword= req.body.newPassword;
     if (!email || !newPassword) {
         return res.status(400).send({ msg: 'Email or new password is missing' });
     }
 
     try {
-        // Hash the new password before updating
+
         const hash = await bcrypt.hash(newPassword, 10);
         const affectedRows = await PersistenceEmail.updateUserPassword(username, hash);
-
         if (affectedRows === 0) {
             return res.status(404).send({ msg: 'User not found' });
         }
-
+        
         // Send email with the new password
         const mailOptions = {
             from: 's12028958@stu.najah.edu',
             to: email,
             subject: 'Your New Password',
             //text: `Hi: ${username} Welcome, we are honored to have you. I hope you benefit from this site`,
-            text:`Welcome, ${username} 
-             we are honored to have you I hope you benefit from this site The password for the website Green_Thumb has been changed 
+            text:`Welcome, ${username} we are honored to have you I hope you benefit from this site The password for the website Green_Thumb has been changed 
             (The new password is: ${newPassword})`
         };
-
         await sendEmail(mailOptions);
-
         return res.status(200).send({ msg: 'New password sent successfully' });
     } catch (error) {
         return res.status(500).send({ msg: error.message });
