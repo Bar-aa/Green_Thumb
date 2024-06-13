@@ -21,5 +21,5 @@ const loginValidationRules = [
 ];
 
 module.exports = {
-    loginValidationRules,
+    loginValidationRules
 };
