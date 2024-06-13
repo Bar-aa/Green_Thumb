@@ -1,17 +1,22 @@
 // authRoutes.js
+
 const express = require('express');
 const router = express.Router();
-const { loginValidationRules } = require('../Validation/SignInValidation');
+const { authenticateToken, authorizeAdmin } = require('../middleware/tokenMiddleware');
 const { loginUser } = require('../Services/UserSignInServices');
 const { addToBlacklist } = require('../Services/logout');
-const { authenticateToken,authorizeRoles } = require('../middleware/tokenMiddleware');
+const { loginValidationRules } = require('../Validation/SignInValidation');
+const { generateToken } = require('../Services/token_generate');
+
+
 
 // Sign In Route
 router.post('/signin', loginValidationRules, async (req, res) => {
     const { usernameOrEmail, password } = req.body;
     try {
         const user = await loginUser(usernameOrEmail, password);
-        res.status(200).json({ message: 'Login successful', user });
+        const token = generateToken(user); // Assuming generateToken function is correctly implemented
+        res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
         console.error(error);
         if (error.message === 'User not found' || error.message === 'Invalid password') {
@@ -24,7 +29,7 @@ router.post('/signin', loginValidationRules, async (req, res) => {
 
 // Logout Route
 router.post('/logout', authenticateToken, (req, res) => {
-    const token = req.header('Authorization')?.split(' ')[1];
+    const token = req.header('Authorization').split(' ')[1];
     if (token) {
         addToBlacklist(token);
         res.status(200).json({ message: 'Logout successful' });
@@ -34,7 +39,7 @@ router.post('/logout', authenticateToken, (req, res) => {
 });
 
 // Example of a protected route with role-based access control
-router.get('/admin', authenticateToken, authorizeRoles('admin'), (req, res) => {
+router.get('/admin', authenticateToken, authorizeAdmin, (req, res) => {
     res.status(200).json({ message: 'Welcome, admin!' });
 });
 

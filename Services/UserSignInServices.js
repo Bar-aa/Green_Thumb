@@ -1,5 +1,7 @@
 const { getUserByUsernameOrEmail, verifyPassword } = require('../Persistence/signinPersistence');
-const { generateToken } = require('../Services/token_generate'); // Update the path accordingly
+const { generateToken } = require('../Services/token_generate');
+
+const jwt = require('jsonwebtoken');
 
 const loginUser = async (usernameOrEmail, password) => {
     try {
@@ -13,10 +15,11 @@ const loginUser = async (usernameOrEmail, password) => {
             throw new Error('Invalid password');
         }
 
-        const token = generateToken(user);
+        
+
 
         return {
-            token,
+            generateToken,
             userId: user.id,
             username: user.username,
             email: user.email,
@@ -25,8 +28,9 @@ const loginUser = async (usernameOrEmail, password) => {
     } catch (err) {
         throw err;
     }
+
 };
 
 module.exports = {
-    loginUser
+    loginUser,
 };
