@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 12 يونيو 2024 الساعة 10:26
+-- Generation Time: 13 يونيو 2024 الساعة 15:14
 -- إصدار الخادم: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -208,7 +208,7 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `role` enum('admin','member') DEFAULT 'member',
+  `role` enum('admin','member','volunteer','parteners') DEFAULT 'member',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `message` varchar(255) DEFAULT 'message'
@@ -219,7 +219,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password_hash`, `email`, `first_name`, `last_name`, `role`, `created_at`, `updated_at`, `message`) VALUES
-(2, 'Alaa', '$2a$10$.PtyKqmd78oOoR16Uc0uBeOkX4j//gQ4Xe86AF/9hokD18P3mLihS', 's12240399@stu.najah.edu', NULL, NULL, 'member', '2024-06-07 15:08:14', '2024-06-11 19:16:33', 'verified successfully'),
+(2, 'Alaa', '$2a$10$.PtyKqmd78oOoR16Uc0uBeOkX4j//gQ4Xe86AF/9hokD18P3mLihS', 's12240399@stu.najah.edu', NULL, NULL, 'volunteer', '2024-06-07 15:08:14', '2024-06-13 13:13:36', 'verified successfully'),
 (3, 'samaa', '$2a$10$BQ670xAXkbCBfquvT89/puEsfifHCgSKlnjtI0avcd5pvY8FifODi', 's12027958@stu.najah.edu', NULL, NULL, 'member', '2024-06-11 18:26:53', '2024-06-12 05:34:34', 'verified successfully'),
 (4, 'tala', '$2a$10$mMWytZ/QkpvjiSMBLHEMjuwRLyKdVSyu0o/wO8TTd3pPKWijl7m9W', 's12010504@stu.najah.edu', NULL, NULL, 'member', '2024-06-11 18:32:13', '2024-06-12 07:06:06', 'verified successfully'),
 (8, 'bb', '$2a$10$3zrGY7phiyvU3RTVEIzZQu1qWagCQyfB7i7wpA4YM.OuayLrLP1pq', 's12028958@stu.najah.edu', NULL, NULL, 'member', '2024-06-12 06:56:13', '2024-06-12 08:14:53', 'verified successfully');

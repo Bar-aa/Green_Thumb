@@ -14,12 +14,14 @@ const {
     validateUserCreation,
     validateUserUpdate   
 } = require('../Validation/userValidation');
+const { authenticateToken} = require('../middleware/authenticateToken');
+const { authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners} = require('../middleware/authorize');
 router.get('/', getAllUsers);
-router.get('/:user_id', validateUserID, getUserById);
-router.get('/name/:name', getUsersByName);
-router.post('/', validateUserCreation, createUser);
-router.put('/:id', validateUserID, validateUserUpdate, updateUser);
-router.delete('/:id', validateUserID, deleteUser);
+router.get('/:user_id', validateUserID,authorizeAdmin,authenticateToken,getUserById);
+router.get('/name/:name',authorizeAdmin,authenticateToken, getUsersByName);
+router.post('/', validateUserCreation,authorizeAdmin,authenticateToken, createUser);
+router.put('/:id', validateUserID, validateUserUpdate,authorizeAdmin,authenticateToken,updateUser);
+router.delete('/:id', validateUserID,authorizeAdmin,authenticateToken,deleteUser);
 
 
 module.exports = router;

@@ -15,13 +15,14 @@ const { getResourcesByOwnerId,
 } = require('../Validation/Resourcevalidation');
 const router = express.Router();
 //const resource = require('../Services/resource');
-
+const { authenticateToken} = require('../middleware/authenticateToken');
+const { authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners} = require('../middleware/authorize');
 router.get('/show', getAllResources); // Move '/show' route above '/:owner_id'
-router.get('/idowner/:owner_id' ,validateOwnerId,getResourcesByOwnerId);
-router.delete('/delete/:id', validateResourceId, deleteResource);
-router.put('/update/:id', validateResourceId, validateResource,updateResource );
-router.get('/type/:type',validateResourceType, getResourceByType);
-router.post('/add',validateResource,addResourceToDatabase);
+router.get('/idowner/:owner_id' ,validateOwnerId,authenticateToken,authorizeAdmin,getResourcesByOwnerId);
+router.delete('/delete/:id', validateResourceId, authenticateToken,authorizeAdmin,deleteResource);
+router.put('/update/:id', validateResourceId, validateResource,authenticateToken,authorizeAdmin,updateResource );
+router.get('/type/:type',validateResourceType,authenticateToken,authorizeAdmin, getResourceByType);
+router.post('/add',validateResource,authenticateToken,authorizeAdmin,addResourceToDatabase);
 
 
 
