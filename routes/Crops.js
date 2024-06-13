@@ -9,11 +9,11 @@ const {
 } = require('../Services/CropsService');
 const { validateCrop, validateCropID } = require('../Validation/cropValidator');
 const { authenticateToken} = require('../middleware/authenticateToken');
-const { authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners} = require('../middleware/authorize');
-router.get('/', authorizeAdmin,authenticateToken,getAllCrops);
-router.get('/:name',authorizeAdmin,authenticateToken, getCropByName);
-router.post('/',validateCrop, authorizeAdmin,authenticateToken,addCrop);
-router.put('/:cropID', validateCropID, validateCrop,authorizeAdmin,authenticateToken, updateCrop);
-router.delete('/:cropID', validateCropID,authorizeAdmin,authenticateToken, deleteCrop);
+const { authorize } = require('../middleware/authorize');
+router.get('/',authenticateToken,authorize,getAllCrops);
+router.get('/:name',authenticateToken,authorize, getCropByName);
+router.post('/',validateCrop,authenticateToken, authorize,addCrop);
+router.put('/:cropID', validateCropID, validateCrop,authenticateToken,authorize,updateCrop);
+router.delete('/:cropID', validateCropID,authenticateToken,authorize,deleteCrop);
 
 module.exports = router;
