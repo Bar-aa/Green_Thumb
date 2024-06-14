@@ -55,8 +55,8 @@ const createCrop = async (cropData) => {
 
 const updateCrop = async (cropID, cropData) => {
     return new Promise((resolve, reject) => {
-        const { plot_id, name, planting_date, expected_harvest_date, previous_crop, activity } = cropData;
-        conn.query('UPDATE crops SET plot_id = ?, name = ?, planting_date = ?, expected_harvest_date = ?, previous_crop = ?, activity = ? WHERE crop_id = ?', [plot_id, name, planting_date, expected_harvest_date, previous_crop, activity, cropID], (error) => {
+        const { plot_id, name, planting_date, expected_harvest_date, activity } = cropData;
+        conn.query('UPDATE crops SET plot_id = ?, name = ?, planting_date = ?, expected_harvest_date = ?, activity = ? WHERE crop_id = ?', [plot_id, name, planting_date, expected_harvest_date, activity, cropID], (error) => {
             if (error) {
                 reject(error);
             } else {
