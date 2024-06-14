@@ -8,7 +8,7 @@ const createUser = async (req, res) => {
         const userId = result.insertId;
         if (userData.role && roleHandlers[userData.role]) {
             const handlerResult = await roleHandlers[userData.role](userId, userData);
-            res.status(201).json({ message: 'User created successfully', userId, handlerResult });
+            res.status(201).json({ message: 'User created successfully', userId});
         } else {
             res.status(201).json({ message: 'User created successfully', userId });
         }
