@@ -48,7 +48,7 @@ const createUser = async (req, res) => {
 
     const userData = req.body;
     try {
-        const result = await createUserPersistence.createUser(userData);
+        const result = await userPersistence.createUser(userData);
         const userId = result.insertId;
         if (userData.role && roleHandlers[userData.role]) {
             const handlerResult = await roleHandlers[userData.role](userId, userData);

@@ -20,8 +20,8 @@ router.get('/', authenticateToken, authorizeRoles(['admin']), getAllUsers);
 router.get('/:user_id', validateUserID, authenticateToken, getUserById);
 router.get('/name/:name', authenticateToken, authorizeRoles(['admin']), getUsersByName);
 router.post('/', validateUserCreation, authenticateToken, authorizeRoles(['admin']), createUser);
-router.put('/:id', validateUserID, validateUserUpdate, authenticateToken, updateUser);
-router.delete('/:id', validateUserID, authenticateToken, authorizeRoles(['admin']), deleteUser);
+router.put('/:id',  validateUserUpdate, authenticateToken, updateUser);
+router.delete('/:id',  authenticateToken, authorizeRoles(['admin']), deleteUser);
 
 
 module.exports = router;
