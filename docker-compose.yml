@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "4400:4400"
+    environment:
+      DATABASE_HOST: host.docker.internal  # This allows the 'app' service to connect to MySQL on the host
+      DATABASE_USER: root  # MySQL username
+      DATABASE_PASSWORD: ''  # MySQL password
+      DATABASE: greenthumb  # MySQL database name
+    depends_on:
+     - mysql  # Specifies that 'app' service depends on 'mysql' service
+
+  mysql:
+    image: mysql:5.7
+    environment:
+     MYSQL_ROOT_PASSWORD: root  # Password for the root user of MySQL
+      MYSQL_DATABASE: greenthumb  # Name of the initial database to be created
+    ports:
+      - "3307:3306"  # Port mapping for MySQL service
+   # volumes:
+    #  - ./data:/var/lib/mysql  # Mounts the ./data directory on the host to /var/lib/mysql in the container
