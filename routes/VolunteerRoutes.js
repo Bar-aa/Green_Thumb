@@ -24,7 +24,7 @@ router.get('/date/:Date', validateVolunteerDate, authenticateToken,authorizeRole
 router.get('/', authenticateToken,  authorizeRoles(['admin','volunteer']), getAllVolunteers);
 router.get('/:id', validateVolunteerID, authenticateToken,authorizeRoles(['admin','volunteer']), getVolunteerById);
 router.post('/', validateVolunteer, authenticateToken,authorizeRoles(['admin']), addNewVolunteer);
-router.put('/:id', validateVolunteerID,validateVolunteer, authenticateToken,authorizeRoles(['admin','volunteer']), updateVolunteer);
-router.delete('/:id', validateVolunteerID, authenticateToken,authorizeRoles(['admin','volunteer']), deleteVolunteer);
+router.put('/:id', validateVolunteerID,validateVolunteer, authenticateToken,authorizeRoles(['admin']), updateVolunteer);
+router.delete('/:id', validateVolunteerID, authenticateToken,authorizeRoles(['admin']), deleteVolunteer);
 
 module.exports = router;
