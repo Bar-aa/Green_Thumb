@@ -29,6 +29,13 @@ const validatePartnershipDelete = [
 
 
 const validatePartnershipCreation = [
+    body('user_id').isInt().withMessage('User ID must be an integer').custom( async (value, { req }) => {
+        const userExists = await checkUserExists (value,req.res); 
+        if (!userExists) {
+            throw new Error('User ID does not exist in the database');
+        }
+        return true;
+    }),
     body('name').isString().withMessage('Name must be a string'),
     body('description').optional().isString().withMessage('Description must be a string'),
     body('contact_info').optional().isString().withMessage('Contact info must be a string'),
@@ -43,6 +50,13 @@ const validatePartnershipCreation = [
 
 const validatePartnershipUpdate = [
     param('partnership_id').isInt().withMessage('Partnership ID must be an integer'),
+    body('user_id').isInt().withMessage('User ID must be an integer').custom( async (value, { req }) => {
+        const userExists = await checkUserExists (value,req.res); 
+        if (!userExists) {
+            throw new Error('User ID does not exist in the database');
+        }
+        return true;
+    }),
     body('name').isString().withMessage('Name must be a string'),
     body('description').optional().isString().withMessage('Description must be a string'),
     body('contact_info').optional().isString().withMessage('Contact info must be a string'),

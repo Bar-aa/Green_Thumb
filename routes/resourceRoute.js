@@ -16,7 +16,7 @@ const { getResourcesByOwnerId,
 const router = express.Router();
 
 const { authenticateToken} = require('../middleware/authenticateToken');
-router.get('/', getAllResources);
+router.get('/',authenticateToken, getAllResources);
 router.get('/:owner_id' ,validateOwnerId,authenticateToken,getResourcesByOwnerId);
 router.delete('/:id', validateResourceId, authenticateToken,deleteResource);
 router.put('/:id', validateResourceId, validateResource,authenticateToken,updateResource );

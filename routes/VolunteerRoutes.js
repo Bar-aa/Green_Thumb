@@ -19,6 +19,7 @@ const {
 const { authenticateToken} = require('../middleware/authenticateToken');
 const {authorizeRoles} = require('../middleware/authorize');
 
+
 router.get('/name/:name', validateVolunteerName, authenticateToken,authorizeRoles(['admin','volunteer']), getVolunteersByName);
 router.get('/date/:Date', validateVolunteerDate, authenticateToken,authorizeRoles(['admin','volunteer']), getVolunteersByEventDate);
 router.get('/', authenticateToken,  authorizeRoles(['admin','volunteer']), getAllVolunteers);
