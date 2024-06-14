@@ -14,14 +14,11 @@ const {
     validatePlotID
 } = require('../Validation/plotValidator');
 
-const {
-    checkGardenIdExists
-} = require('../Validation/gardenValidator');
+
 const { authenticateToken} = require('../middleware/authenticateToken');
 const { authorizeRoles} = require('../middleware/authorize');
 router.get('/', authenticateToken,getAllPlots);
 router.get('/:id', validatePlotID,authenticateToken,getPlotById);
-//router.post('/', validatePlot, authenticateToken,authorizeRoles(['admin','member']),checkGardenIdExists, createPlot); 
 router.post('/', validatePlot, authenticateToken,authorizeRoles(['admin','member']), createPlot); 
 router.put('/:id', validatePlotID, validatePlot, authenticateToken,authorizeRoles(['admin','member']),updatePlot);
 router.delete('/:id', validatePlotID,authenticateToken,authorizeRoles(['admin','member']) ,deletePlot);

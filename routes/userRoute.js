@@ -17,10 +17,10 @@ const {
 const { authenticateToken} = require('../middleware/authenticateToken');
 const { authorizeRoles} = require('../middleware/authorize');
 router.get('/', authenticateToken,authorizeRoles(['admin']),getAllUsers);
-router.get('/:user_id', validateUserID,authenticateToken,authorizeRoles(['admin']),getUserById);
+router.get('/:user_id', validateUserID,authenticateToken,getUserById);
 router.get('/name/:name',authenticateToken,authorizeRoles(['admin']), getUsersByName);
 router.post('/', validateUserCreation,authenticateToken,authorizeRoles(['admin']), createUser);
-router.put('/:id', validateUserID, validateUserUpdate,authenticateToken,authorizeRoles(['admin']),updateUser);
+router.put('/:id', validateUserID, validateUserUpdate,authenticateToken,updateUser);
 router.delete('/:id', validateUserID,authenticateToken,authorizeRoles(['admin']), deleteUser);
 
 

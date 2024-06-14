@@ -20,7 +20,7 @@ router.get('/title/:title', validateKnowledgeTitle,authenticateToken, getKnowled
 router.get('/', authenticateToken, getAllKnowledges);
 router.post('/', validateKnowledgeCreation, authenticateToken, authorizeRoles(['admin','author']),createKnowledgeItem);
 router.put('/:id', validateKnowledgeUpdate,authenticateToken, authorizeRoles(['admin','author']),updateKnowledge);
-router.delete('/:id', validateKnowledgeId,authenticateToken,authorizeRoles(['admin']), deleteKnowledge);
+router.delete('/:id', validateKnowledgeId,authenticateToken,authorizeRoles(['admin','author']), deleteKnowledge);
 router.get('/:id', validateKnowledgeId,authenticateToken,getKnowledgeById);
 
 module.exports = router;
