@@ -23,7 +23,7 @@ router.get('/name/:name', validateVolunteerName, authenticateToken,authorizeRole
 router.get('/date/:Date', validateVolunteerDate, authenticateToken,authorizeRoles(['admin','volunteer']), getVolunteersByEventDate);
 router.get('/', authenticateToken,  authorizeRoles(['admin','volunteer']), getAllVolunteers);
 router.get('/:id', validateVolunteerID, authenticateToken,authorizeRoles(['admin','volunteer']), getVolunteerById);
-router.post('/', validateVolunteer, authenticateToken,authorizeRoles(['admin','volunteer']), addNewVolunteer);
+router.post('/', validateVolunteer, authenticateToken,authorizeRoles(['admin']), addNewVolunteer);
 router.put('/:id', validateVolunteerID,validateVolunteer, authenticateToken,authorizeRoles(['admin','volunteer']), updateVolunteer);
 router.delete('/:id', validateVolunteerID, authenticateToken,authorizeRoles(['admin','volunteer']), deleteVolunteer);
 

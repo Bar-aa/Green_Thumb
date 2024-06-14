@@ -1,4 +1,3 @@
-const createUserPersistence = require('../Persistence/UserSignUpPersistence');
 
 const roleHandlers = {
     volunteer: async (userId, userData) => {
