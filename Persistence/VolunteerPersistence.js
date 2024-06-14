@@ -48,10 +48,10 @@ const getVolunteersByEventDate = (date) => {
     });
 };
 
-const addNewVolunteer = (user_id, garden_id, event_date, role, email, name, phone_number) => {
-    const query = 'INSERT INTO volunteers (user_id, garden_id, event_date, role, email, name, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?)';
+const addNewVolunteer = (user_id, garden_id, event_date, team, email, name, phone_number) => {
+    const query = 'INSERT INTO volunteers (user_id, garden_id, event_date, team, email, name, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?)';
     return new Promise((resolve, reject) => {
-        db.query(query, [user_id, garden_id, event_date, role, email, name, phone_number], (err, result) => {
+        db.query(query, [user_id, garden_id, event_date, team, email, name, phone_number], (err, result) => {
             if (err) {
                 return reject(err);
             }
@@ -60,10 +60,10 @@ const addNewVolunteer = (user_id, garden_id, event_date, role, email, name, phon
     });
 };
 
-const updateVolunteer = (id, user_id, garden_id, event_date, role, email, name, phone_number) => {
-    const query = 'UPDATE volunteers SET user_id = ?, garden_id = ?, event_date = ?, role = ?, email = ?, name = ?, phone_number = ? WHERE volunteer_id = ?';
+const updateVolunteer = (id, user_id, garden_id, event_date, team, email, name, phone_number) => {
+    const query = 'UPDATE volunteers SET user_id = ?, garden_id = ?, event_date = ?, team = ?, email = ?, name = ?, phone_number = ? WHERE volunteer_id = ?';
     return new Promise((resolve, reject) => {
-        db.query(query, [user_id, garden_id, event_date, role, email, name, phone_number, id], (err, result) => {
+        db.query(query, [user_id, garden_id, event_date, team, email, name, phone_number, id], (err, result) => {
             if (err) {
                 return reject(err);
             }

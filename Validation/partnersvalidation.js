@@ -1,4 +1,5 @@
 const { body, param, validationResult } = require('express-validator');
+const { checkUserExists } = require('../Validation/userValidator');
 
 
 const validatePartnershipId = [
@@ -70,4 +71,5 @@ module.exports = {
     validatePartnershipCreation,
     validatePartnershipUpdate,
     validatePartnershipDelete
+
 };

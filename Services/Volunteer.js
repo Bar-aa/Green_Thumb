@@ -55,14 +55,14 @@ const getVolunteersByEventDate = async (req, res) => {
 };
 
 const addNewVolunteer = async (req, res) => {
-    const { user_id, garden_id, event_date, role, email, name, phone_number } = req.body;
-    if (!user_id || !garden_id || !event_date || !role || !email || !name || !phone_number) {
+    const { user_id, garden_id, event_date, team, email, name, phone_number } = req.body;
+    if (!user_id || !garden_id || !event_date || !team|| !email || !name || !phone_number) {
         return res.status(400).json({ message: 'Missing important fields' });
     }
 
     try {
-        const result = await volunteerPersistence.addNewVolunteer(user_id, garden_id, event_date, role, email, name, phone_number);
-        res.status(201).json({ id: result.insertId, user_id, garden_id, event_date, role, email, name, phone_number });
+        const result = await volunteerPersistence.addNewVolunteer(user_id, garden_id, event_date, team, email, name, phone_number);
+        res.status(201).json({ id: result.insertId, user_id, garden_id, event_date, team, email, name, phone_number });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
@@ -71,13 +71,13 @@ const addNewVolunteer = async (req, res) => {
 
 const updateVolunteer = async (req, res) => {
     const { id } = req.params;
-    const { user_id, garden_id, event_date, role, email, name, phone_number } = req.body;
-    if (!user_id || !garden_id || !event_date || !role || !email || !name || !phone_number) {
+    const { user_id, garden_id, event_date, team, email, name, phone_number } = req.body;
+    if (!user_id || !garden_id || !event_date || !team|| !email || !name || !phone_number) {
         return res.status(400).json({ message: 'Missing important fields' });
     }
 
     try {
-        const result = await volunteerPersistence.updateVolunteer(id, user_id, garden_id, event_date, role, email, name, phone_number);
+        const result = await volunteerPersistence.updateVolunteer(id, user_id, garden_id, event_date, team, email, name, phone_number);
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Volunteer not found' });
         }

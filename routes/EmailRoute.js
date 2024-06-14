@@ -12,12 +12,9 @@ const {
     
 } = require('../Validation/EmailValidation');
 const { authenticateToken} = require('../middleware/authenticateToken');
-const { authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners} = require('../middleware/authorize');
 // Route to verify email
-router.get('/verify-email',authenticateToken,authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners, validateEmail, verifyEmail);
-
-// Route to reset password
-router.post('/reset-password',authenticateToken,authorizeAdmin ,authorizemember,authorizeVolunter,authorizeParteners ,validateResetPassword, resetPassword);
+router.get('/verify-email',authenticateToken, validateEmail, verifyEmail);
+router.post('/reset-password',authenticateToken,validateResetPassword, resetPassword);
 
 
 module.exports = router;

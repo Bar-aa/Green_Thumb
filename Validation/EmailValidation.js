@@ -6,8 +6,6 @@ const emailSchema = Joi.object({
 });
 
 const resetPasswordSchema = Joi.object({
-    email: Joi.string().email().required(),
-    username: Joi.string().required(),
     newPassword: Joi.string().required(), // No length requirement
 });
 

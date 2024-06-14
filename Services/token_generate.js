@@ -6,7 +6,7 @@ const generateToken = (user) => {
         username: user.username,
         email: user.email,
         role: user.role
-    }, process.env.JWT_SECRET, { expiresIn: '1h' }); 
+    }, process.env.JWT_SECRET, { expiresIn: '1h' });
 };
 
 module.exports = {

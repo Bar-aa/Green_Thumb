@@ -18,7 +18,7 @@ const validateVolunteer = [
         return true;
     }),
     body('event_date').isISO8601().toDate().withMessage('Event date must be a valid date'),
-    body('role').isString().withMessage('Role must be a string'),
+    body('team').isString().withMessage('Team must be a string'),
     body('email').isEmail().withMessage('Email must be a valid email address'),
     body('name').isString().withMessage('Name must be a string'),
     body('phone_number').matches(/^[0-9]+$/).withMessage('Phone number must contain only digits'),
