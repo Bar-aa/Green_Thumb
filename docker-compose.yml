@@ -19,5 +19,5 @@ services:
       MYSQL_DATABASE: greenthumb  # Name of the initial database to be created
     ports:
       - "3307:3306"  # Port mapping for MySQL service
-   # volumes:
-    #  - ./data:/var/lib/mysql  # Mounts the ./data directory on the host to /var/lib/mysql in the container
+    volumes:
+     - ./data:/var/lib/mysql  # Mounts the ./data directory on the host to /var/lib/mysql in the container
