@@ -29,7 +29,7 @@ const getVolunteersByName = async (req, res) => {
     console.log(`Received Name: ${name}`);
     try {
         const results = await volunteerPersistence.getVolunteersByName(name);
-        if (results.length === 0 ) {
+        if (results.length === 0) {
             return res.status(404).json({ message: 'Volunteer not found' });
         }
         res.json(results);
@@ -56,7 +56,7 @@ const getVolunteersByEventDate = async (req, res) => {
 
 const addNewVolunteer = async (req, res) => {
     const { user_id, garden_id, event_date, team, email, name, phone_number } = req.body;
-    if (!user_id || !garden_id || !event_date || !team|| !email || !name || !phone_number) {
+    if (!user_id || !garden_id || !event_date || !team || !email || !name || !phone_number) {
         return res.status(400).json({ message: 'Missing important fields' });
     }
 
@@ -72,7 +72,7 @@ const addNewVolunteer = async (req, res) => {
 const updateVolunteer = async (req, res) => {
     const { id } = req.params;
     const { user_id, garden_id, event_date, team, email, name, phone_number } = req.body;
-    if (!user_id || !garden_id || !event_date || !team|| !email || !name || !phone_number) {
+    if (!user_id || !garden_id || !event_date || !team || !email || !name || !phone_number) {
         return res.status(400).json({ message: 'Missing important fields' });
     }
 

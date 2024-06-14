@@ -16,8 +16,8 @@ const {
     validateVolunteerID,
     validateVolunteerDate
 } = require('../Validation/VolunteerValidation');
-const { authenticateToken} = require('../middleware/authenticateToken');
-const {authorizeRoles} = require('../middleware/authorize');
+const { authenticateToken } = require('../middleware/authenticateToken');
+const { authorizeRoles } = require('../middleware/authorize');
 
 
 router.get('/name/:name', validateVolunteerName, authenticateToken,authorizeRoles(['admin','volunteer']), getVolunteersByName);
@@ -27,5 +27,6 @@ router.get('/:id', validateVolunteerID, authenticateToken,authorizeRoles(['admin
 router.post('/', validateVolunteer, authenticateToken,authorizeRoles(['admin']), addNewVolunteer);
 router.put('/:id', validateVolunteerID,validateVolunteer, authenticateToken,authorizeRoles(['admin']), updateVolunteer);
 router.delete('/:id', validateVolunteerID, authenticateToken,authorizeRoles(['admin']), deleteVolunteer);
+
 
 module.exports = router;

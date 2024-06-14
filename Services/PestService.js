@@ -14,5 +14,5 @@ const getPestInfo = async (req, res) => {
 };
 
 module.exports = {
-    getPestInfo 
+    getPestInfo
 };

@@ -1,7 +1,7 @@
 const db = require('../config/dbconnection');
 
 
-  const partnershipPersistence = require('../Persistence/partnerpersistance');
+const partnershipPersistence = require('../Persistence/partnerpersistance');
 
 const showPartners = async (req, res) => {
     try {
@@ -44,13 +44,13 @@ const getPartnersByName = async (req, res) => {
 };
 
 const addPartnership = async (req, res) => {
-    const { user_id ,name, description, contact_info } = req.body;
-    if (!user_id ||!name || !description || !contact_info) {
+    const { user_id, name, description, contact_info } = req.body;
+    if (!user_id || !name || !description || !contact_info) {
         return res.status(400).json({ message: 'Missing important fields' });
     }
     try {
-        const insertId = await partnershipPersistence.createPartnership(user_id,name, description, contact_info);
-        res.status(201).json({ id: insertId,user_id, name, description, contact_info });
+        const insertId = await partnershipPersistence.createPartnership(user_id, name, description, contact_info);
+        res.status(201).json({ id: insertId, user_id, name, description, contact_info });
     } catch (error) {
         console.error('Error adding partnership:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -59,12 +59,12 @@ const addPartnership = async (req, res) => {
 
 const updatePartnership = async (req, res) => {
     const { partnership_id } = req.params;
-    const { user_id,name, description, contact_info } = req.body;
-    if (!user_id||!name || !description || !contact_info) {
+    const { user_id, name, description, contact_info } = req.body;
+    if (!user_id || !name || !description || !contact_info) {
         return res.status(400).json({ message: 'Missing important fields' });
     }
     try {
-        const affectedRows = await partnershipPersistence.updatePartnership(partnership_id,user_id, name, description, contact_info);
+        const affectedRows = await partnershipPersistence.updatePartnership(partnership_id, user_id, name, description, contact_info);
         if (affectedRows === 0) {
             res.status(404).json({ message: 'Partnership not found' });
         } else {

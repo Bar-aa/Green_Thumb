@@ -2,10 +2,10 @@ const { body, param, validationResult } = require('express-validator');
 const { getCropById } = require('../Persistence/CropsConfig');
 const { checkPlotIdExists } = require('../Validation/plotValidator');
 
- 
+
 const validateCrop = [
-    body('plot_id').isInt().withMessage('Plot ID must be an integer').custom( async (value, { req }) => {
-        const plotExists = await checkPlotIdExists (value,req.res); 
+    body('plot_id').isInt().withMessage('Plot ID must be an integer').custom(async (value, { req }) => {
+        const plotExists = await checkPlotIdExists(value, req.res);
         if (!plotExists) {
             throw new Error('Plot ID does not exist in the database');
         }
@@ -26,8 +26,8 @@ const validateCrop = [
 ];
 
 const validateCropID = [
-    param('cropID').isInt().withMessage('Crop ID must be an integer').custom( async (value, { req }) => {
-        const cropExists = await checkCropIdExists (value,req.res); 
+    param('cropID').isInt().withMessage('Crop ID must be an integer').custom(async (value, { req }) => {
+        const cropExists = await checkCropIdExists(value, req.res);
         if (!cropExists) {
             throw new Error('Crop ID does not exist in the database');
         }
@@ -46,7 +46,7 @@ const validateCropID = [
 const checkCropIdExists = async (id) => {
     try {
         const result = await getCropById(id);
-        return result!=null;
+        return result != null;
     } catch (err) {
         console.error(err);
         return false;

@@ -12,7 +12,7 @@ const loginUser = async (req, res) => {
         if (!isPasswordValid) {
             throw new Error('Invalid password');
         }
-        const token= generateToken(user);
+        const token = generateToken(user);
         res.status(200).json({ message: 'Login successful', token });
         return {
             token,
@@ -21,7 +21,7 @@ const loginUser = async (req, res) => {
             email: user.email,
             role: user.role
         };
-    
+
     } catch (error) {
         if (error.message === 'User not found' || error.message === 'Invalid password') {
             res.status(401).json({ message: 'Invalid credentials' });
@@ -29,7 +29,7 @@ const loginUser = async (req, res) => {
             res.status(500).json({ message: 'Internal server error' });
         }
     }
-   
+
 };
 
 module.exports = {

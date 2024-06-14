@@ -23,5 +23,5 @@ const updateUserPassword = async (username, newPasswordHash) => {
 module.exports = {
     updateUserMessage,
     updateUserPassword,
-    
+
 };

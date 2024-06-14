@@ -14,13 +14,13 @@ const {
     validateKnowledgeCreation,
     validateKnowledgeUpdate
 } = require('../Validation/KnowledgeValidation');
-const { authenticateToken} = require('../middleware/authenticateToken');
-const { authorizeRoles} = require('../middleware/authorize');
-router.get('/title/:title', validateKnowledgeTitle,authenticateToken, getKnowledgeByTitle);
+const { authenticateToken } = require('../middleware/authenticateToken');
+const { authorizeRoles } = require('../middleware/authorize');
+router.get('/title/:title', validateKnowledgeTitle, authenticateToken, getKnowledgeByTitle);
 router.get('/', authenticateToken, getAllKnowledges);
-router.post('/', validateKnowledgeCreation, authenticateToken, authorizeRoles(['admin','author']),createKnowledgeItem);
-router.put('/:id', validateKnowledgeUpdate,authenticateToken, authorizeRoles(['admin','author']),updateKnowledge);
-router.delete('/:id', validateKnowledgeId,authenticateToken,authorizeRoles(['admin','author']), deleteKnowledge);
-router.get('/:id', validateKnowledgeId,authenticateToken,getKnowledgeById);
+router.post('/', validateKnowledgeCreation, authenticateToken, authorizeRoles(['admin', 'author']), createKnowledgeItem);
+router.put('/:id', validateKnowledgeUpdate, authenticateToken, authorizeRoles(['admin', 'author']), updateKnowledge);
+router.delete('/:id', validateKnowledgeId, authenticateToken, authorizeRoles(['admin', 'author']), deleteKnowledge);
+router.get('/:id', validateKnowledgeId, authenticateToken, getKnowledgeById);
 
 module.exports = router;
