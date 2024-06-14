@@ -12,9 +12,9 @@ const getUserByUsernameOrEmail = (usernameOrEmail) => {
                 return reject(err);
             }
             if (results.length === 0) {
-                return resolve(null); 
+                return resolve(null);
             }
-            resolve(results[0]); 
+            resolve(results[0]);
         });
     });
 };

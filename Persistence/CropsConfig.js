@@ -31,7 +31,7 @@ const getCropById = async (id) => {
                 reject(error); // Reject with the error object
             } else {
                 if (results.length > 0) {
-                    resolve(results[0]); 
+                    resolve(results[0]);
                 } else {
                     resolve(null);
                 }
@@ -42,7 +42,7 @@ const getCropById = async (id) => {
 
 const createCrop = async (cropData) => {
     return new Promise((resolve, reject) => {
-        const { plot_id, name, planting_date, expected_harvest_date,  activity } = cropData;
+        const { plot_id, name, planting_date, expected_harvest_date, activity } = cropData;
         conn.query('INSERT INTO crops (plot_id, name, planting_date, expected_harvest_date, activity) VALUES ( ?, ?, ?, ?,?)', [plot_id, name, planting_date, expected_harvest_date, activity], (error, results) => {
             if (error) {
                 reject(error);

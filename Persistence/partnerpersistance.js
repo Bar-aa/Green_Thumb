@@ -26,7 +26,7 @@ const getPartnershipById = async (partnerId) => {
 };
 
 const getPartnershipByName = async (name) => {
-    
+
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM localpartnerships WHERE name = ?';
         db.query(query, [name], (error, results) => {

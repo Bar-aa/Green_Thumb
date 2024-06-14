@@ -26,7 +26,7 @@ const getUserById = (id) => {
     });
 };
 
-const getUsersByName = async (name) => { 
+const getUsersByName = async (name) => {
     const query = 'SELECT * FROM users WHERE username = ?';
     return new Promise((resolve, reject) => {
         db.query(query, [name], (err, results) => {
@@ -78,7 +78,7 @@ const updateUser = (userId, updateFields, updateValues) => {
         if (!updateValues || !Array.isArray(updateValues) || updateValues.length === 0) {
             return reject(new Error('No values to update'));
         }
-        
+
         updateValues.push(userId);
         const query = `
             UPDATE users
