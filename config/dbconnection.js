@@ -1,4 +1,4 @@
-const {DATABASE, DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD} = process.env;
+const { DATABASE, DATABASE_HOST, DATABASE_USER, DATABASE_PASSWORD } = process.env;
 
 var mysql = require("mysql");
 
@@ -9,11 +9,11 @@ var conn = mysql.createConnection({
     database: DATABASE
 });
 
-conn.connect( (error) => {
-    if(error){
+conn.connect((error) => {
+    if (error) {
         throw error;
-    }else {
-        console.log( DATABASE + " MYSQL Connected...")
+    } else {
+        console.log(DATABASE + " MYSQL Connected...")
     }
 });
-module.exports=conn;
+module.exports = conn;

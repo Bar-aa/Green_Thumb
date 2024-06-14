@@ -32,7 +32,7 @@ const userValidationRules = [
         .withMessage('Last name must be less than 50 characters long'),
     body('role')
         .optional()
-        .isIn([ 'member', 'author', 'volunteer','partner'])
+        .isIn(['member', 'author', 'volunteer', 'partner'])
         .withMessage('Role must be one of partner, member, author, or volunteer'),
     async (req, res, next) => {
         const errors = validationResult(req);

@@ -39,10 +39,10 @@ const getPartnershipByName = async (name) => {
     });
 };
 
-const createPartnership = async (user_id,name, description, contactInfo) => {
+const createPartnership = async (user_id, name, description, contactInfo) => {
     return new Promise((resolve, reject) => {
         const query = 'INSERT INTO localpartnerships (user_id,name, description, contact_info) VALUES (?,?, ?, ?)';
-        db.query(query, [user_id,name, description, contactInfo], (error, result) => {
+        db.query(query, [user_id, name, description, contactInfo], (error, result) => {
             if (error) {
                 reject(error);
             } else {
@@ -52,10 +52,10 @@ const createPartnership = async (user_id,name, description, contactInfo) => {
     });
 };
 
-const updatePartnership = async (partnershipId,user_id, name, description, contactInfo) => {
+const updatePartnership = async (partnershipId, user_id, name, description, contactInfo) => {
     return new Promise((resolve, reject) => {
         const query = 'UPDATE localpartnerships SET user_id = ?, name = ?, description = ?, contact_info = ? WHERE partnership_id = ?';
-        db.query(query, [user_id,name, description, contactInfo, partnershipId], (error, result) => {
+        db.query(query, [user_id, name, description, contactInfo, partnershipId], (error, result) => {
             if (error) {
                 reject(error);
             } else {

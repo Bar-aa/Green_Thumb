@@ -1,26 +1,26 @@
 const { body, param, validationResult } = require('express-validator');
 const { checkPlotIdExists } = require('../Validation/plotValidator');
 const { checkCropIdExists } = require('../Validation/cropValidator');
-const { getCropById} = require('../Persistence/CropsPlaningPersistence');
+const { getCropById } = require('../Persistence/CropsPlaningPersistence');
 const validateCropRotation = [
     body('plot_id')
         .isInt().withMessage('Plot ID must be an integer')
-        .custom( async (value, { req }) => {
-            const plotExists = await checkPlotIdExists (value,req.res); 
+        .custom(async (value, { req }) => {
+            const plotExists = await checkPlotIdExists(value, req.res);
             if (!plotExists) {
                 throw new Error('Plot ID does not exist in the database');
             }
             return true;
         }),
-    body('current_crop_id').isInt().withMessage('Current Crop ID must be an integer').custom( async (value, { req }) => {
-        const cropExists = await checkCropIdExists (value,req.res); 
+    body('current_crop_id').isInt().withMessage('Current Crop ID must be an integer').custom(async (value, { req }) => {
+        const cropExists = await checkCropIdExists(value, req.res);
         if (!cropExists) {
             throw new Error('Crop ID does not exist in the database');
         }
         return true;
     }),
-    body('previous_crop_id').isInt().withMessage('Previous Crop ID must be an integer').custom( async (value, { req }) => {
-        const cropExists = await checkCropIdExists (value,req.res); 
+    body('previous_crop_id').isInt().withMessage('Previous Crop ID must be an integer').custom(async (value, { req }) => {
+        const cropExists = await checkCropIdExists(value, req.res);
         if (!cropExists) {
             throw new Error('Crop ID does not exist in the database');
         }
@@ -37,8 +37,8 @@ const validateCropRotation = [
 ];
 
 const validateCropRotationID = [
-    param('id').isInt().withMessage('Crop rotation ID must be an integer').custom( async (value, { req }) => {
-        const CropRotationExists = await checkCropRotationIdExists (value); 
+    param('id').isInt().withMessage('Crop rotation ID must be an integer').custom(async (value, { req }) => {
+        const CropRotationExists = await checkCropRotationIdExists(value);
         if (!CropRotationExists) {
             throw new Error('Crop Rotation ID does not exist in the database');
         }
@@ -56,7 +56,7 @@ const validateCropRotationID = [
 const checkCropRotationIdExists = async (id) => {
     try {
         const result = await getCropById(id);
-        return result!=null;
+        return result != null;
     } catch (err) {
         console.error(err);
         return false;

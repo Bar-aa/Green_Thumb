@@ -1,17 +1,17 @@
 const { body, param, validationResult } = require('express-validator');
 const { checkUserExists } = require('../Validation/userValidator');
-const {validateGarden,validateGardenID, checkGardenIdExists } = require('../Validation/gardenValidator');
+const { validateGarden, validateGardenID, checkGardenIdExists } = require('../Validation/gardenValidator');
 
 const validateVolunteer = [
-    body('user_id').isInt().withMessage('User ID must be an integer').custom( async (value, { req }) => {
-        const userExists = await checkUserExists (value,req.res); 
+    body('user_id').isInt().withMessage('User ID must be an integer').custom(async (value, { req }) => {
+        const userExists = await checkUserExists(value, req.res);
         if (!userExists) {
             throw new Error('User ID does not exist in the database');
         }
         return true;
     }),
-    body('garden_id').isInt().withMessage('Garden ID must be an integer').custom( async (value, { req }) => {
-        const gardenExists = await checkGardenIdExists (value,req.res); 
+    body('garden_id').isInt().withMessage('Garden ID must be an integer').custom(async (value, { req }) => {
+        const gardenExists = await checkGardenIdExists(value, req.res);
         if (!gardenExists) {
             throw new Error('Garden ID does not exist in the database');
         }

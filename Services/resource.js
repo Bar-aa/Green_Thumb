@@ -1,17 +1,17 @@
 const resourcePersistence = require('../Persistence/resourcepresistence');
 
-  const getResourcesByOwnerId = async (req, res) => {
+const getResourcesByOwnerId = async (req, res) => {
 
-      const idUSER = req.params.owner_id;
-      try {
-          const results = await resourcePersistence.getResourcesByOwnerId(idUSER);
-          res.status(200).json({ success: true, message: 'These resources:', resources: results });
-      } catch (error) {
-          console.error('Error retrieving resources:', error);
-          res.status(500).json({ success: false, error: 'An error occurred while retrieving resources' });
-      }
-  };
-  const getAllResources = async (req, res) => {
+    const idUSER = req.params.owner_id;
+    try {
+        const results = await resourcePersistence.getResourcesByOwnerId(idUSER);
+        res.status(200).json({ success: true, message: 'These resources:', resources: results });
+    } catch (error) {
+        console.error('Error retrieving resources:', error);
+        res.status(500).json({ success: false, error: 'An error occurred while retrieving resources' });
+    }
+};
+const getAllResources = async (req, res) => {
     try {
         const results = await resourcePersistence.getAllResources();
         res.status(200).json({ success: true, message: 'All resources retrieved successfully:', resources: results });
@@ -23,7 +23,7 @@ const resourcePersistence = require('../Persistence/resourcepresistence');
 const getResourceByType = (req, res) => {
     const { type } = req.params;
 
-   
+
 
     resourcePersistence.getResourceByType(type, (err, results) => {
         if (err) {
@@ -68,7 +68,7 @@ const addResourceToDatabase = async (req, res) => {
     const type = req.body['type'];
     const description = req.body['description'];
     const owner_id = req.body['owner_id'];
-        if (!type || !description || !owner_id) {
+    if (!type || !description || !owner_id) {
         return res.status(400).json({ message: 'Missing important fields' });
     }
 
@@ -81,11 +81,11 @@ const addResourceToDatabase = async (req, res) => {
     }
 };
 
-  module.exports = {
-      getResourcesByOwnerId,
-      getAllResources,
-      getResourceByType,
-      updateResource,
-      deleteResource,
-      addResourceToDatabase
-  };
+module.exports = {
+    getResourcesByOwnerId,
+    getAllResources,
+    getResourceByType,
+    updateResource,
+    deleteResource,
+    addResourceToDatabase
+};
