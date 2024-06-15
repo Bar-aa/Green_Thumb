@@ -20,7 +20,9 @@ services:
       MYSQL_DATABASE: greenthumb
       MYSQL_ROOT_HOST: '%'
     ports:
+
       - "3307:3306"
     volumes:
       - ./data:/var/lib/mysql  # Persist MySQL data
       - ./DataBase/greenthumb.sql:/docker-entrypoint-initdb.d/greenthumb.sql  # Initialize database with SQL file
+
