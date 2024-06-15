@@ -1,23 +1,28 @@
 version: '3.8'
+
 services:
   app:
     build: .
     ports:
       - "4400:4400"
     environment:
-      DATABASE_HOST: host.docker.internal  # This allows the 'app' service to connect to MySQL on the host
-      DATABASE_USER: root  # MySQL username
-      DATABASE_PASSWORD: ''  # MySQL password
-      DATABASE: greenthumb  # MySQL database name
+      DATABASE_HOST: mysql
+      DATABASE_USER: root
+      DATABASE_PASSWORD: 'root'
+      DATABASE: greenthumb
     depends_on:
-     - mysql  # Specifies that 'app' service depends on 'mysql' service
+      - mysql
 
   mysql:
     image: mysql:5.7
     environment:
-     MYSQL_ROOT_PASSWORD: root  # Password for the root user of MySQL
-      MYSQL_DATABASE: greenthumb  # Name of the initial database to be created
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: greenthumb
+      MYSQL_ROOT_HOST: '%'
     ports:
-      - "3307:3306"  # Port mapping for MySQL service
+
+      - "3307:3306"
     volumes:
-     - ./data:/var/lib/mysql  # Mounts the ./data directory on the host to /var/lib/mysql in the container
+      - ./data:/var/lib/mysql  # Persist MySQL data
+      - ./DataBase/greenthumb.sql:/docker-entrypoint-initdb.d/greenthumb.sql  # Initialize database with SQL file
+
